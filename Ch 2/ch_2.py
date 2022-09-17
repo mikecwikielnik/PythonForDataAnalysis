@@ -23,3 +23,9 @@ help(b)
 
 # McKinney, Wes. Python for Data Analysis (p. 53). O'Reilly Media. Kindle Edition. 
 
+# ex: a neat trick
+
+a = 5
+
+isinstance(a, int)  # true
+
