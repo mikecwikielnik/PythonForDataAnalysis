@@ -18,6 +18,9 @@ McKinney, Wes. Python for Data Analysis (p. 84). O'Reilly Media. Kindle Edition.
 '''
 
 from audioop import reverse
+from lib2to3.pytree import _Results
+from os import remove
+
 
 
 tup = (4, 5, 6)
@@ -381,3 +384,115 @@ flattened
 
 McKinney, Wes. Python for Data Analysis (p. 113). O'Reilly Media. Kindle Edition. 
 '''
+
+def my_function(x, y):
+    return x + y
+
+my_function(1, 2)
+
+result = my_function(1, 2)
+
+result
+
+# ex: no return line
+
+def function_without_return(x, y):
+    x * y
+    
+print(function_without_return(5,5))
+
+# ex: we define a function with an optional z arg with default value of 1.5
+
+def my_function(x, y, z=1.5):
+    if z > 1: 
+        return z * (z + y)
+    else:
+        return z / (x + y)
+    
+# Returning Multiple Values
+
+# ex: return multiple values from a fn with simple syntax:
+
+def f():
+    a = 5
+    b = 6
+    c = 7
+    return a, b, c
+
+a, b, c = f()
+
+# ex: a dictionary can return multiple values
+
+def f():
+    a = 5
+    b = 6
+    c = 7
+    return {"a": a, "b": b, "c": c}
+
+# Functions Are Objects
+
+# ex: making user submitted data uniform/ Note: this is a really nice example
+
+states = ["   alabama  ", "Georg!a", "south ### carolina"]
+
+import re
+
+def clean_strings(strings):
+    result = []
+    for value in strings:
+        value = value.strip()
+        value = re.sub("[!#?]", "", value)
+        value = value.title()
+        result.append(value)
+    return result
+
+clean_strings(states)
+
+# ex: another approach is to make a list of the operations you want to apply to a set of strings
+
+def remove_punctuation(value):
+    return re.sub("[!#?]", "", value)
+
+clean_ops = [str.strip, remove_punctuation, str.title]
+
+def clean_strings(strings, ops):
+    result = []
+    for value in strings:
+        for func in ops:
+            value = func(value)
+        result.append(value)
+    return result
+
+clean_strings(states, clean_ops)
+
+# ex: you can use fn's as arg to other fn's like the map fn. 
+
+for x in map(remove_punctuation, states):
+    print(x)
+    
+# Anonymous (Lambda) Functions
+
+def short_function(x):
+    return x * 2
+
+equiv_anon = lambda x: x * 2
+
+# ex:
+
+def apply_to_list(some_list, f):
+    return [f(x) for x in some_list]
+
+ints = [4, 0, 1, 5, 6]
+
+apply_to_list(ints, lambda x: x * 2)
+
+# ex:
+
+strings = ["foo", "card", "bar", "aaaa", "abab"]
+
+strings.sort(key=lambda x: len(set(x)))
+
+strings
+
+# Generators
+
