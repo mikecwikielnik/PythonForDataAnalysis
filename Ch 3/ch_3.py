@@ -563,3 +563,35 @@ for letter, names in itertools.groupby(names, first_letter):
     
 # Errors and Exception Handling
 
+# ex:
+
+def attempt_float(x):
+    try:
+        return float(x)
+    except:
+        return x
+    
+attempt_float("something")
+
+# ex: supress an error
+
+def attempt_float(x):
+    try:
+        return float(x)
+    except ValueError(x):
+        return x
+    
+# ex: catching multiple exception types by writing a tuple
+
+def attempt_float(x):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return x
+    
+'''
+3.3 Files and the Operating System
+
+McKinney, Wes. Python for Data Analysis (p. 131). O'Reilly Media. Kindle Edition. 
+'''
+
