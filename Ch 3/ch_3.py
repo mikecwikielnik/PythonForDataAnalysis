@@ -595,3 +595,45 @@ def attempt_float(x):
 McKinney, Wes. Python for Data Analysis (p. 131). O'Reilly Media. Kindle Edition. 
 '''
 
+path = "../book files/examples/segismundo.txt"  # how to go up a file, you knew this but googled it anyway
+
+f = open(path, encoding="utf-8")
+
+for line in f:
+    print(line)
+    
+lines = [x.rstrip() for x in open(path, encoding="utf-8")]
+
+lines
+
+# close your files, it releases the resources back to the operating system
+
+f.close()
+
+# with statement
+
+with open(path, encoding="utf-8") as f:
+    lines = [x.rstrip() for x in f]
+    
+# read returns a certain number of characters
+
+f1 = open(path)
+
+f1.read(10)
+
+f2 = open(path, mode="rb")  # Binary mode
+
+f2.read(10)
+
+# ex:
+
+path
+
+with open("tmp.txt", mode="w") as handle:
+    handle.writelines(x for x in open(path) if len(x) > 1)
+    
+with open("tmp.txt") as f:
+    lines = f.readlines()
+    
+lines
+
