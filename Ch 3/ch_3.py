@@ -496,3 +496,70 @@ strings
 
 # Generators
 
+# ex: iterating over a dictionary yields the dict keys
+
+some_dict = {"a": 1, "b": 2, "c": 3}
+
+for key in some_dict:
+    print(key)
+    
+# the 1st line of the for loop, tries to create an iterator out of some_dict
+
+dict_iterator = iter(some_dict)
+
+dict_iterator
+
+list(dict_iterator)
+
+# ex: to create a generator, use yield instead of return 
+
+def squares(n=10):
+    print(f"Generating squares from 1 to {n ** 2}")
+    for i in range(1, n + 1):
+        yield i ** 2
+        
+gen = squares()
+
+gen
+
+# it is not until you request elements from the generator that it begins
+
+for x in gen:
+    print(x, end=" ")
+
+# Generator expressions
+
+gen = (x ** 2 for x in range(100))
+
+gen
+
+# above is equivalent to below:
+
+def _make_gen():
+    for x in range(100):
+        yield x ** 2
+        
+gen = _make_gen()
+
+# generator exp can be used instead of list comp as fn arg is some cases:
+
+sum(x ** 2 for x in range(100))
+
+dict((i, i ** 2) for i in range(5))     # i like this 
+
+# itertools module
+
+# ex:
+
+import itertools
+
+def first_letter(x):
+    return x[0]
+
+names = ["alan", "adam", "wes", "will", "albert", "steven"]
+
+for letter, names in itertools.groupby(names, first_letter):
+    print(letter, list(names))  # names is a generator
+    
+# Errors and Exception Handling
+
