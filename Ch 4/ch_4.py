@@ -63,9 +63,33 @@ np.zeros((3, 6))
 
 np.empty((2, 3, 2))
 
-'''
-Data Types for ndarrays
+# ex: convert data types
 
-McKinney, Wes. Python for Data Analysis (p. 150). O'Reilly Media. Kindle Edition. 
-'''
+arr = np.array([1, 2, 3, 4, 5])
+
+arr.dtype
+
+float_arr = arr.astype(np.float64)
+
+float_arr
+
+float_arr.dtype
+
+# ex: float to integer
+
+arr = np.array([3.7, -1.2])
+
+arr
+
+arr.astype(np.int32)
+
+# ex: strings to float
+
+numeric_strings = np.array(["1.25", "-9.6"], dtype=np.string_)  # use pandas for non-numeric data
+
+numeric_strings.astype(float)
+
+# Arithmetic with NumPy Arrays
+
+# McKinney, Wes. Python for Data Analysis (p. 155). O'Reilly Media. Kindle Edition. 
 
