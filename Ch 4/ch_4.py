@@ -93,3 +93,25 @@ numeric_strings.astype(float)
 
 # McKinney, Wes. Python for Data Analysis (p. 155). O'Reilly Media. Kindle Edition. 
 
+arr = np.array([[1., 2., 3.], [4., 5., 6.,]])
+
+arr
+
+arr * arr
+
+arr - arr
+
+1 / arr
+
+arr ** 2
+
+arr2 = np.array([[0, 0, 1], [5, 15, 26]] )
+
+arr2
+
+arr > arr2
+
+# Basic Indexing and Slicing
+
+# McKinney, Wes. Python for Data Analysis (p. 156). O'Reilly Media. Kindle Edition. 
+
