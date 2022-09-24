@@ -11,6 +11,7 @@ McKinney, Wes. Python for Data Analysis (p. 144). O'Reilly Media. Kindle Edition
 
 # ex:
 
+from array import array
 import numpy as np
 
 data = np.array([[1.5, -0.1, 3], [0, -3, 6.5]])
@@ -114,4 +115,82 @@ arr > arr2
 # Basic Indexing and Slicing
 
 # McKinney, Wes. Python for Data Analysis (p. 156). O'Reilly Media. Kindle Edition. 
+
+# one-dimensional arrays are simple; they act similarly to python lists:
+
+arr = np.arange(10)
+
+arr
+
+arr[5]
+
+arr[5:8]
+
+arr[5:8] = 12   # replace elements 5, 6, 7 (Start counting from zero && one off error!)
+
+arr
+
+arr_slice = arr[5:8]     # start counting from zero
+
+arr_slice
+
+arr_slice[1]=12345
+
+arr
+
+arr_slice[:] = 64
+
+arr
+
+arr2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+arr2d[2]
+
+arr2d[0][2]
+
+arr2d[0, 2]
+
+# ex:
+
+arr3d = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+
+arr3d
+
+# arr3d[0] is a 2x3 array, we know this
+
+# below is copying the values so we can replace them later
+
+old_values = arr3d[0].copy()
+
+arr3d[0] = 42
+
+arr3d
+
+arr3d[0] = old_values
+
+arr3d
+
+# indexing with slices
+
+arr
+
+arr[0:3]    # you could leave the first element blank like below
+
+arr2d
+
+arr2d[:2]
+
+# ex: you can pass multiple slices just like you can pass multipe indexes:
+
+arr2d[:2, 1:]
+
+# ex: assigning values to a slice expression
+
+arr2d[:2, 1:] = 0
+
+arr2d
+
+# Boolean Indexing
+
+# McKinney, Wes. Python for Data Analysis (p. 166). O'Reilly Media. Kindle Edition. 
 
