@@ -326,3 +326,19 @@ arr.swapaxes(0, 1)
 McKinney, Wes. Python for Data Analysis (p. 175). O'Reilly Media. Kindle Edition. 
 '''
 
+samples = np.random.standard_normal(size=(4, 4))
+
+samples
+
+# numpy.random is well over an order of magnitude faster for generating v lg samples:
+
+# Table 4-3. NumPy random number generator methods
+
+# McKinney, Wes. Python for Data Analysis (p. 176). O'Reilly Media. Kindle Edition. 
+
+'''
+4.3 Universal Functions: Fast Element-Wise Array Functions
+
+McKinney, Wes. Python for Data Analysis (p. 177). O'Reilly Media. Kindle Edition. 
+'''
+
