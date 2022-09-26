@@ -12,6 +12,7 @@ McKinney, Wes. Python for Data Analysis (p. 144). O'Reilly Media. Kindle Edition
 # ex:
 
 from array import array
+from re import X
 from unicodedata import name
 import numpy as np
 
@@ -326,6 +327,8 @@ arr.swapaxes(0, 1)
 McKinney, Wes. Python for Data Analysis (p. 175). O'Reilly Media. Kindle Edition. 
 '''
 
+from random import normalvariate
+
 samples = np.random.standard_normal(size=(4, 4))
 
 samples
@@ -336,9 +339,45 @@ samples
 
 # McKinney, Wes. Python for Data Analysis (p. 176). O'Reilly Media. Kindle Edition. 
 
+rng = np.random.default_rng(seed=12345)
+
+data = rng.standard_normal((2, 3))
+
 '''
 4.3 Universal Functions: Fast Element-Wise Array Functions
 
 McKinney, Wes. Python for Data Analysis (p. 177). O'Reilly Media. Kindle Edition. 
+'''
+
+# ex: many ufuncs are simple element-wise transformations, like numpy.sqrt or numpy.exp:
+
+arr = np.arange(10)
+
+arr
+
+np.sqrt(arr)
+
+np.exp(arr)
+
+# ex: numpy.add or numpy.maximum, takes two arrays (binary ufuncs) & return a single array
+
+x = rng.standard_normal(8)
+
+y = rng.standard_normal(8)
+
+x
+
+y
+
+np.maximum(x, y)
+
+# See Tables 4-4 and 4-5 for a listing of some of NumPy’s ufuncs.
+
+# McKinney, Wes. Python for Data Analysis (p. 180). O'Reilly Media. Kindle Edition. 
+
+'''
+4.4 Array-Oriented Programming with Arrays
+
+McKinney, Wes. Python for Data Analysis (p. 182). O'Reilly Media. Kindle Edition. 
 '''
 
