@@ -12,6 +12,7 @@ McKinney, Wes. Python for Data Analysis (p. 144). O'Reilly Media. Kindle Edition
 # ex:
 
 from array import array
+from unicodedata import name
 import numpy as np
 
 data = np.array([[1.5, -0.1, 3], [0, -3, 6.5]])
@@ -193,4 +194,64 @@ arr2d
 # Boolean Indexing
 
 # McKinney, Wes. Python for Data Analysis (p. 166). O'Reilly Media. Kindle Edition. 
+
+names = np.array(["bob", "joe", "will", "bob", "will", "joe", "joe"])
+
+data = np.array([[4, 7], [0, 2], [-5, 6], [0, 0], [1, 2], [-12, -4], [3, 4]])
+
+names
+
+data 
+
+# ex: boolean array
+
+names == "bob"
+
+data[names == "bob"]    # match the data element with the name "bob"- output array will make sense
+
+# ex: select from the rows where names == "bob" and index the columsn, too
+
+data[names == "bob", 1:]
+
+# another way 
+
+data[names == "bob", 1]
+
+# ex: negation of the statement
+
+names != "bob"
+
+~(names == "bob")
+
+data[~(names == "bob")]
+
+# ex: ~ operator
+
+cond = names == "bob"
+
+data[~cond]
+
+# ex: & (and) and | (or):
+
+mask = (names == "bob")|(names == "will")
+
+mask
+
+data[mask]
+
+# ex: setting all of the negative numbers in data to 0:
+
+data[data < 0] = 0
+
+data
+
+# ex: set whole rows or columns
+
+data[names != "joe"] = 7
+
+data
+
+# Fancy Indexing
+
+# McKinney, Wes. Python for Data Analysis (p. 170). O'Reilly Media. Kindle Edition. 
 
