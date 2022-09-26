@@ -255,3 +255,42 @@ data
 
 # McKinney, Wes. Python for Data Analysis (p. 170). O'Reilly Media. Kindle Edition. 
 
+# ex: 
+
+arr = np.zeros((8, 4))
+
+for i in range(8):
+    arr[i] = i
+    
+arr
+
+# to select a subset of the rows in an order, pass a list or ndarray of integers
+
+arr[[4, 3, 0, 6]]
+
+arr[[-3, -5, -7]]
+
+# ex: passing multiple index arrays does something slightly different
+
+arr = np.arange(32).reshape((8, 4))
+
+arr 
+
+arr[[1, 5, 7, 2], [0, 3, 1, 2]]
+
+# ex:
+
+arr[[1, 5, 7, 2]][:, [0, 3, 1, 2]]
+
+# ex: if you assign values with fancy indexing, the indexed values will be modified
+
+arr[[1, 5, 7, 2], [0, 3, 1, 2]]
+
+arr[[1, 5, 7, 2], [0, 3, 1, 2]] = 0
+
+arr
+
+# Transposing Arrays and Swapping Axes
+
+# McKinney, Wes. Python for Data Analysis (p. 173). O'Reilly Media. Kindle Edition. 
+
