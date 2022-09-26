@@ -294,3 +294,35 @@ arr
 
 # McKinney, Wes. Python for Data Analysis (p. 173). O'Reilly Media. Kindle Edition. 
 
+arr = np.arange(15).reshape((3, 5))
+
+arr
+
+arr.T   # transpose 
+
+# ex: compute the inner matrix product using numpy.dot:
+
+arr = np.array([[0, 1, 0], [1, 2, -2], [6, 3, 2], [-1, 0, -1], [1, 0, 1]])
+
+arr
+
+np.dot(arr.T, arr)
+
+# ex: @ infix operator is another way to do matrix mult:
+
+arr.T @ arr
+
+# Simple transposing with .T is a special case of swapping axes. ndarray has the method swapaxes,
+
+# McKinney, Wes. Python for Data Analysis (p. 174). O'Reilly Media. Kindle Edition. 
+
+arr
+
+arr.swapaxes(0, 1)
+
+'''
+4.2 Pseudorandom Number Generation
+
+McKinney, Wes. Python for Data Analysis (p. 175). O'Reilly Media. Kindle Edition. 
+'''
+
