@@ -381,3 +381,35 @@ np.maximum(x, y)
 McKinney, Wes. Python for Data Analysis (p. 182). O'Reilly Media. Kindle Edition. 
 '''
 
+# ex: evaluate the function sqrt(x^2 + y^2) across a regular grid of values
+
+points = np.arange(-5, 5, 0.01)     # 100 equally spaced points
+
+xs, ys = np.meshgrid(points, points)
+
+ys
+
+# evaluating the function is a matter of writing the same expression you would write with two points:
+
+# McKinney, Wes. Python for Data Analysis (p. 183). O'Reilly Media. Kindle Edition.
+
+z = np.sqrt(xs ** 2 + ys ** 2)
+
+z
+
+# ex: matplotlib to create visualization of this two-dimensional array:
+
+import matplotlib.pyplot as plt
+
+plt.imshow(z, cmap=plt.cm.gray, extent=[-5, 5, -5, 5])
+
+plt.colorbar()
+
+plt.title("Image plot of $\sqrt{x^2 + y^2} for a grid of values")
+
+plt.show()  # the book doesn't include this, and you got it on the first try! 
+
+# Expressing Conditional Logic as Array Operations
+
+# McKinney, Wes. Python for Data Analysis (p. 186). O'Reilly Media. Kindle Edition. 
+
