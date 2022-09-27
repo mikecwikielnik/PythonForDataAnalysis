@@ -547,3 +547,39 @@ bools.all()
 
 # McKinney, Wes. Python for Data Analysis (p. 192). O'Reilly Media. Kindle Edition. 
 
+arr = rng.standard_normal(6)
+
+arr 
+
+arr.sort()
+
+arr
+
+# ex: arr.sort(axis=0) sorts within each column, while arr.sort(axis=1) sorts across each row
+
+arr = rng.standard_normal((5, 3))
+
+arr
+
+arr.sort(axis=0)
+
+arr
+
+# make sure you look at the top row to see the nuance. Don't look for max/min values
+
+arr.sort(axis=1)
+
+arr
+
+# ex: sorting a list?
+
+arr2 = np.array([5, -10, 7, 1, 0, -3])
+
+sorted_arr2 = np.sort(arr2)
+
+sorted_arr2
+
+# Unique and Other Set Logic
+
+# McKinney, Wes. Python for Data Analysis (p. 194). O'Reilly Media. Kindle Edition. 
+
