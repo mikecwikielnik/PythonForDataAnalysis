@@ -413,3 +413,53 @@ plt.show()  # the book doesn't include this, and you got it on the first try!
 
 # McKinney, Wes. Python for Data Analysis (p. 186). O'Reilly Media. Kindle Edition. 
 
+
+# ex: boolean array and two arrays of values
+
+xarr = np.array([1.1, 1.2, 1.3, 1.4, 1.5])
+
+yarr = np.array([2.1, 2.2, 2.3, 2.4, 2.5])
+
+cond = np.array([True, False, True, True, False])
+
+# A list comprehension might look like this:
+
+result = [(x if c else y)
+          for x, y, c in zip(xarr, yarr, cond)]
+
+result
+
+# the ex above has problems 1) not fast for lg arrays (see loops) 2) won't work for multidimensional arrays
+
+result = np.where(cond, xarr, yarr)
+
+result
+
+# A typical use of where in data analysis is to produce a new array of values based on another array.
+
+# McKinney, Wes. Python for Data Analysis (p. 187). O'Reilly Media. Kindle Edition. 
+
+# ex Suppose you had a matrix of randomly generated data and 
+
+# you wanted to replace all positive values with 2 and all negative values with –2. 
+
+# This is possible to do with numpy.where:
+
+# McKinney, Wes. Python for Data Analysis (p. 187). O'Reilly Media. Kindle Edition. 
+
+arr = rng.standard_normal((4, 4))
+
+arr
+
+arr > 0
+
+np.where(arr > 0, 2, -2)
+
+# ex: replace all pos values in arr with the constant 2
+
+np.where(arr > 0, 2, arr)   # set only positive values to 2
+
+# Mathematical and Statistical Methods
+
+# McKinney, Wes. Python for Data Analysis (p. 188). O'Reilly Media. Kindle Edition. 
+
