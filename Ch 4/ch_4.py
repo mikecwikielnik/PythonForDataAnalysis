@@ -583,3 +583,29 @@ sorted_arr2
 
 # McKinney, Wes. Python for Data Analysis (p. 194). O'Reilly Media. Kindle Edition. 
 
+names = np.array(["bob", "bob", "will"])
+
+np.unique(names)
+
+ints = np.array([5, 5, 3, 6])
+
+np.unique(ints)
+
+# ex: test membership of the values in one array in another, returning a Boolean array:
+
+# this is probably most likely will be useful somewhere and is very cool
+
+values = np.array([6, 0, 0, 3, 2, 5, 6])
+
+np.in1d(values, [5, 1])
+
+# Table 4-7. Array set operations
+
+# McKinney, Wes. Python for Data Analysis (p. 195). O'Reilly Media. Kindle Edition. 
+
+'''
+4.5 File Input and Output with Arrays
+
+McKinney, Wes. Python for Data Analysis (p. 195). O'Reilly Media. Kindle Edition. 
+'''
+
