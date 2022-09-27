@@ -525,3 +525,25 @@ ppArr.cumsum(axis=1)    # even more interesting results!
 
 # McKinney, Wes. Python for Data Analysis (p. 191). O'Reilly Media. Kindle Edition. 
 
+# ex: this is a nice example
+
+arr = rng.standard_normal(100)  # seems like the way to generate n random elements
+
+(arr > 0).sum()     # Number of positive values
+
+(arr <= 0).sum()    # Number of non-positive values
+
+# ex: any tests whether one or more values are True, while all checks if every value is True
+
+bools = np.array([False, False, True, False])
+
+bools.any()
+
+bools.all()
+
+# above can work with non-boolean arrays, where nonzero elements are treated as True
+
+# Sorting
+
+# McKinney, Wes. Python for Data Analysis (p. 192). O'Reilly Media. Kindle Edition. 
+
