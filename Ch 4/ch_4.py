@@ -463,3 +463,65 @@ np.where(arr > 0, 2, arr)   # set only positive values to 2
 
 # McKinney, Wes. Python for Data Analysis (p. 188). O'Reilly Media. Kindle Edition. 
 
+# ex: generate some normally distributed random data and compute some aggregate statistics:
+
+arr = rng.standard_normal((5, 4))   #RC Cola
+
+arr
+
+arr.mean()
+
+np.mean()
+
+arr.sum()
+
+arr.mean(axis=1)
+
+arr.sum(axis=0)
+
+# Here, arr.mean(axis=1) means “compute mean across the columns,” where arr.sum(axis=0) means “compute sum down the rows.”
+
+# McKinney, Wes. Python for Data Analysis (p. 189). O'Reilly Media. Kindle Edition. 
+
+# ex: cumsum & cumprod don't aggregate, instead producing an array of the intermediate results;
+
+arr = np.array([0, 1, 2, 3, 4, 5, 6, 7])
+
+arr.cumsum()
+
+# ex: arr.cumsum(axis=0) computes cumulative sum down the rows. While arr.cumsum(axis=1) computes along the columns:
+
+arr = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+
+arr     # lines 494 - 496 should be second nature to you
+
+arr.cumsum(axis=0)
+
+arr.cumsum(axis=1)
+
+# scratch
+
+pArr = np.array([[1, 1, 1], [5, 5, 5], [3, 3, 3]])
+
+pArr
+
+pArr.T  # transpose! hehe
+
+pArr.cumsum(axis=0)
+
+pArr.cumsum(axis=1)     # interesting results!
+
+ppArr = pArr.T
+
+ppArr.cumsum(axis=0)
+
+ppArr.cumsum(axis=1)    # even more interesting results!
+
+# Table 4-6. Basic array statistical methods
+
+# McKinney, Wes. Python for Data Analysis (p. 190). O'Reilly Media. Kindle Edition. 
+
+# Methods for Boolean Arrays
+
+# McKinney, Wes. Python for Data Analysis (p. 191). O'Reilly Media. Kindle Edition. 
+
