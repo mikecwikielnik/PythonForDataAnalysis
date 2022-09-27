@@ -609,3 +609,23 @@ np.in1d(values, [5, 1])
 McKinney, Wes. Python for Data Analysis (p. 195). O'Reilly Media. Kindle Edition. 
 '''
 
+arr = np.arange(10)
+
+np.save("some_array", arr)
+
+np.load("some_array.npy")
+
+np.savez("array_archive.npz", a=arr, b=arr)
+
+arch = np.load("array_archive.npz")
+
+arch["b"]
+
+np.savez_compressed("array_compressed.npz", a=arr, b=arr)
+
+'''
+4.6 Linear Algebra
+
+McKinney, Wes. Python for Data Analysis (p. 197). O'Reilly Media. Kindle Edition. 
+'''
+
