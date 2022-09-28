@@ -667,3 +667,52 @@ mat @ inv(mat)
 McKinney, Wes. Python for Data Analysis (p. 199). O'Reilly Media. Kindle Edition. 
 '''
 
+# Pure python way to build a single random walk with 1000 steps using built-in random module:
+
+#! blockstart
+import random
+position = 0
+walk = [position]
+nsteps = 1000
+for _ in range(nsteps):
+    step = 1 if random.randint(0, 1) else -1
+    position += step
+    walk.append(position)
+#! blockend
+
+plt.plot(walk[:100])
+
+plt.show()
+
+# ex:
+
+# use the numpy.random module to draw 1,000 coin flips at once, 
+
+# set these to 1 and –1, and compute the cumulative sum:
+
+# McKinney, Wes. Python for Data Analysis (p. 201). O'Reilly Media. Kindle Edition. 
+
+nsteps = 1000
+
+rng = np.random.default_rng(seed=12345)
+
+draws = rng.integers(0, 2, size=nsteps)
+
+steps = np.where(draws == 0, 1, -1)
+
+walk = steps.cumsum()
+
+# begin to extract statistics
+
+walk.min()
+
+walk.max()
+
+# ex:
+
+(np.abs(walk) >= 10).argmax()
+
+# Simulating Many Random Walks at Once
+
+# McKinney, Wes. Python for Data Analysis (p. 202). O'Reilly Media. Kindle Edition. 
+
