@@ -716,3 +716,41 @@ walk.max()
 
 # McKinney, Wes. Python for Data Analysis (p. 202). O'Reilly Media. Kindle Edition. 
 
+# ex: 5000 random walks
+
+nwalks = 5000
+
+nsteps = 1000
+
+draws = rng.integers(0, 2, size=(nwalks, nsteps))   # 0 or 1
+
+steps = np.where(draws > 0, 1, -1)
+
+walks = steps.cumsum(axis=1)
+
+walks
+
+# compute max/min
+
+walks.max()
+
+walks.min()
+
+# compute the min crossing time to 30 or -30. It is tricky because not all will reach either number
+
+hits30 = (np.abs(walks) >= 30).any(axis=1)
+
+hits30
+
+hits30.sum()    # Number that hit 30 or -30
+
+# use a boolean array (hits30) to select rows of walks that cross the 30 level,
+# call argmax across axis 1 to get crossing times
+
+crossing_times = (np.abs(walks[hits30]) >= 30).argmax(axis=1)
+
+crossing_times
+
+# compute the avg min crossing time
+
+crossing_times.mean()
