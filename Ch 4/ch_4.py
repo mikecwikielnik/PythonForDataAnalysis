@@ -629,3 +629,41 @@ np.savez_compressed("array_compressed.npz", a=arr, b=arr)
 McKinney, Wes. Python for Data Analysis (p. 197). O'Reilly Media. Kindle Edition. 
 '''
 
+x = np.array([[1., 2., 3.,], [4., 5., 6.]])
+
+y = np.array([[6., 23.], [-1, 7], [8, 9]])
+
+x 
+
+y
+
+# lines 632 - 638 should be absolute second nature
+
+x.dot(y)    # dot product
+
+# x.dot(y) is equivalent to np.dot(x, y):
+
+np.dot(x, y)
+
+# numpy.linalg has matrix decompositions and things like inverse/determinant:
+
+from numpy.linalg import inv, qr
+
+X = rng.standard_normal((5, 5))
+
+mat = X.T @ X
+
+inv(mat)
+
+mat @ inv(mat)
+
+# Table 4-8. Commonly used numpy.linalg functions
+
+# McKinney, Wes. Python for Data Analysis (p. 199). O'Reilly Media. Kindle Edition. 
+
+'''
+4.7 Example: Random Walks
+
+McKinney, Wes. Python for Data Analysis (p. 199). O'Reilly Media. Kindle Edition. 
+'''
+
