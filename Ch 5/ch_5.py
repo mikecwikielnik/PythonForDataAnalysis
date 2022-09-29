@@ -269,3 +269,62 @@ frame3.columns
 McKinney, Wes. Python for Data Analysis (p. 229). O'Reilly Media. Kindle Edition. 
 '''
 
+# Reindexing
+
+# McKinney, Wes. Python for Data Analysis (p. 229). O'Reilly Media. Kindle Edition. 
+
+# important method on pandas objects is reindexing
+
+# ex:
+
+obj = pd.Series([4.5, 7.2, -5.3, 3.6], index=["d", "b", "a", "c"])      # pd.Series!
+
+obj
+
+# calling a reindex on this Series
+
+obj2 = obj.reindex(["a", "b", "c", "d", "e"])
+
+obj2
+
+# method: ffill
+
+obj3 = pd.Series(["blue", "purple", "yellow"], index=[0, 2, 4])
+
+obj3    # second nature
+
+obj3.reindex(np.arange(6), method="ffill")
+
+# In df, reindex can alter rows/columns/both, rows are first though
+
+frame = pd.DataFrame(np.arange(9).reshape((3, 3)),
+                     index=["a", "c", "d"],
+                     columns=["ohio", "texas", "california"])
+
+frame
+
+frame2 = frame.reindex(index=["a", "b", "c", "d"])
+
+frame2
+
+# columns can be reindexed with the columns keyword:
+
+states = ["texas", "utah", "california"]
+
+frame.reindex(columns=states)
+
+# ex:
+
+frame.reindex(states, axis="columns")
+
+# Table 5-3. reindex function arguments
+
+# McKinney, Wes. Python for Data Analysis (p. 232). O'Reilly Media. Kindle Edition. 
+
+# many users prefer to reindex using the loc operator
+
+frame.loc[["a", "d", "c"], ["california", "texas"]]
+
+# Dropping Entries from an Axis
+
+# McKinney, Wes. Python for Data Analysis (p. 234). O'Reilly Media. Kindle Edition. 
