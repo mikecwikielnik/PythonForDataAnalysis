@@ -219,3 +219,53 @@ frame3
 
 # McKinney, Wes. Python for Data Analysis (p. 226). O'Reilly Media. Kindle Edition. 
 
+# ex:
+
+obj = pd.Series(np.arange(3), index=["a", "b", "c"])
+
+index = obj.index
+
+index
+
+index[1:]
+
+# Index objects are immutable
+
+index[1] = "d"  # TypeError
+
+# Immutability makes it safer to share Index objects among data structures:
+
+labels = pd.Index(np.arange(3))
+
+labels
+
+obj2 = pd.Series([1.5, -2.5, 0], index=labels)
+
+obj2
+
+# boolean check
+
+obj2.index is labels
+
+# Index is array-like, and behaves like a fixed-size set
+
+frame3
+
+frame3.columns
+
+"ohio" in frame3.columns
+
+2022 in frame3.index
+
+# Table 5-2. Some Index methods and properties
+
+# McKinney, Wes. Python for Data Analysis (p. 228). O'Reilly Media. Kindle Edition. 
+
+# the table above computes set intersection, set union, append, difference, and insert
+
+'''
+5.2 Essential Functionality
+
+McKinney, Wes. Python for Data Analysis (p. 229). O'Reilly Media. Kindle Edition. 
+'''
+
