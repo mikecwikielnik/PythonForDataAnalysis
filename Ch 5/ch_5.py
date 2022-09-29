@@ -113,3 +113,109 @@ obj
 
 # McKinney, Wes. Python for Data Analysis (p. 215). O'Reilly Media. Kindle Edition. 
 
+data = {"state": ["ohio", "ohio", "ohio", "nevada", "nevada", "nevada"],
+        "year": [2000, 2001, 2002, 2001, 2002, 2003],
+        "pop": [1.5, 1.7, 3.6, 2.4, 2.9, 3.2]}
+
+frame = pd.DataFrame(data)
+
+frame   # lines 116 - 122 should be second nature
+
+frame.head()    # Same as R
+
+frame.tail()    # Same as R
+
+# specify a sequence of columns
+
+pd.DataFrame(data, columns=["year", "state", "pop"])
+
+# if you pass a column that doesn't exist, you get NaNs
+
+frame2 = pd.DataFrame(data, columns=["year", "state", "pop", "debt"])
+
+frame2
+
+frame2.columns
+
+# retrieve via dict notation or dot attribute
+
+frame2["state"]  # dictionary notation
+
+frame2.year
+
+# frame2[column] works for any column name
+
+# iloc and loc attributes! 
+
+frame2.loc[1]
+
+frame2.iloc[2]
+
+# columns can be modified in-place, debt is assigned a scalar value or an array of values:
+
+frame2["debt"] = 16.5
+
+frame2
+
+frame2["debt"] = np.arange(6.)
+
+frame2
+
+# ex: things must match
+
+val = pd.Series([-1.2, -1.5, -1.7], index=["two", "four", "five"])
+
+frame2["debt"] = val
+
+frame2
+
+# del method
+
+frame2["eastern"] = frame2["state"] == "ohio"   # this is one way to create new columns
+
+frame2
+
+del frame2["eastern"]
+
+frame2.columns
+
+# ex: nested dictionary of dictionaries
+
+populations = {"ohio": {2000: 1.5, 2001: 1.7, 2002: 3.6},
+               "nevada": {2001: 2.4, 2002: 2.9}}
+
+frame3 = pd.DataFrame(populations)
+
+frame3
+
+frame3.T    # transpose an array
+
+# a -> a.T -> a may lose information about column data types
+
+# ex: the book shifts the years over one by the explicit index [2001, 2002, 2003]
+
+pd.DataFrame(populations, index=[2001, 2002, 2003])
+
+# Dictionaries of Series are treated in the same way:
+
+pdata = {"ohio": frame3["ohio"][:-1],
+         "nevada": frame3["nevada"][:2]}
+
+pd.DataFrame(pdata)
+
+# Table 5-1. Possible data inputs to the DataFrame constructor
+
+# McKinney, Wes. Python for Data Analysis (p. 224). O'Reilly Media. Kindle Edition. 
+
+# ex: naming the axis of df
+
+frame3.index.name = "year"  # y axis
+
+frame3.columns.name = "state"   # x axis
+
+frame3
+
+# Index Objects
+
+# McKinney, Wes. Python for Data Analysis (p. 226). O'Reilly Media. Kindle Edition. 
+
