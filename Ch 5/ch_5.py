@@ -328,3 +328,41 @@ frame.loc[["a", "d", "c"], ["california", "texas"]]
 # Dropping Entries from an Axis
 
 # McKinney, Wes. Python for Data Analysis (p. 234). O'Reilly Media. Kindle Edition. 
+
+obj = pd.Series(np.arange(5.), index=["a", "b", "c", "d", "e"])         # np.arange(5.) stretches the values from 0 to 5 & it must match the index 
+
+obj     # this should be second nature
+
+new_obj = obj.drop("c")         # convenient
+
+new_obj
+
+obj.drop(["d", "c"])
+
+# With pd.DataFrame, index values can be deleted from either axis. 
+
+# ex: an example DataFrame
+
+data = pd.DataFrame(np.arange(16).reshape((4, 4)),
+                    index=["ohio", "colorado", "utah", "new york"],
+                    columns=["one", "two", "three", "four"])
+
+data    # hi beautiful dataframe
+
+# calling drop with a seq of labels will drop values from the row labels (axis 0):
+
+data.drop(index=["colorado", "ohio"])
+
+# to drop labels from columns, instead use the columns keyword:
+
+data.drop(columns=["two"])      # we are not affecting the main array. these are "views" into the data
+
+new_array = data.drop(columns=["two"])
+
+new_array       # this is a new variable with col "two" dropped. you have done this alot in R
+
+# Indexing, Selection, and Filtering
+
+# McKinney, Wes. Python for Data Analysis (p. 236). O'Reilly Media. Kindle Edition. 
+
+
