@@ -445,3 +445,40 @@ data
 # Selection on DataFrame with loc and iloc
 
 # McKinney, Wes. Python for Data Analysis (p. 243). O'Reilly Media. Kindle Edition. 
+
+# ex: select a single row by label:
+
+data
+
+data.loc["colorado"]
+
+data.loc[["colorado", "new york"]]
+
+# below is another way to parse
+
+data.loc["colorado", ["two", "three"]]
+
+# ex:
+
+data.iloc[2]
+
+data.iloc[[2, 1]]
+
+data.iloc[2, [3, 0, 1]]
+
+data.iloc[[1, 2], [3, 0, 1]]    # RC Cola...count starts at 0, 2x3 array
+
+# a multiple "query" view into the data
+
+data.loc[:"utah", "two"]
+
+data.iloc[:, :3][data.three > 5]
+
+# Table 5-4. Indexing options with DataFrame
+
+# McKinney, Wes. Python for Data Analysis (p. 246). O'Reilly Media. Kindle Edition. 
+
+# Integer indexing pitfalls
+
+# McKinney, Wes. Python for Data Analysis (p. 247). O'Reilly Media. Kindle Edition. 
+
