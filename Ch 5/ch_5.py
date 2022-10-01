@@ -365,4 +365,83 @@ new_array       # this is a new variable with col "two" dropped. you have done t
 
 # McKinney, Wes. Python for Data Analysis (p. 236). O'Reilly Media. Kindle Edition. 
 
+# ex:
 
+obj = pd.Series(np.arange(4.), index=["a", "b", "c", "d"])
+
+obj
+
+obj["b"]        # selects the "value" in the key, value ordered pair. ofc, this isn't a dictionary
+
+obj[1]  # yields the same as ["b"], because ["a"] is 0
+
+# up to here should be second nature. this is really just a review on R
+
+obj[2:4]        # a typical slice
+
+obj[["b", "a", "d"]]
+
+obj[[1, 3]]
+
+obj[obj < 2]
+
+# again, nothing here is all that different from R
+
+# Note: the preferred way is the loc operator. This will be shown in the following example:
+
+obj1 = pd.Series([1, 2, 3], index=[2, 0, 1])
+
+obj2 = pd.Series([1, 2, 3], index=["a", "b", "c"])
+
+obj1
+
+obj2    
+
+obj1[[0, 1, 2]]
+
+obj2[[0, 1, 2]]
+
+# Series is a n row x 1 column data frame
+# DataFrame is the union of all the Series to make a n row x n column dataframe
+
+# making elements of the series 5
+
+obj2.loc["b":"c"] = 5   # called "indexing into"
+
+obj2    # this is also something that should be second nature. It is quite powerful in something like sql
+
+# indexing into a df retrieves 1 or more columns either with a single value or seq:
+
+data = pd.DataFrame(np.arange(16).reshape((4, 4)),
+                    index=["ohio", "colorado", "utah", "new york"],     # index is y axis
+                    columns=["one", "two", "three", "four"])
+
+data
+
+data["two"]
+
+data[["three", "one"]]  # here is good because you can switch the columns
+
+# attow, you don't know the sql version of this. perhaps you manually pick it there too
+
+# indexing like this has a few special cases
+
+data[:2]        # modifies rows
+
+data[data["three"] > 5]         # pick the rows where the "three" columns is greater than 5
+
+# more sql like queries into the data
+
+# ex: Boolean frame
+
+data < 5
+
+# Given an inequality, index into the 0 for all values less than 5:
+
+data[data < 5] = 0
+
+data
+
+# Selection on DataFrame with loc and iloc
+
+# McKinney, Wes. Python for Data Analysis (p. 243). O'Reilly Media. Kindle Edition. 
