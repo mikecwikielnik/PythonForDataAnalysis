@@ -510,4 +510,21 @@ ser[:2]         # integer oriented slicing
 
 # McKinney, Wes. Python for Data Analysis (p. 249). O'Reilly Media. Kindle Edition. 
 
+# be tender when modifying dataframes in place
+
+data.loc[:, "one"] = 1
+
+data
+
+data.iloc[2] = 5
+
+data
+
+data.loc[data["four"] > 5] = 3
+
+data
+
+# Arithmetic and Data Alignment
+
+# McKinney, Wes. Python for Data Analysis (p. 252). O'Reilly Media. Kindle Edition. 
 
