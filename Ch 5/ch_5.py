@@ -482,3 +482,32 @@ data.iloc[:, :3][data.three > 5]
 
 # McKinney, Wes. Python for Data Analysis (p. 247). O'Reilly Media. Kindle Edition. 
 
+# ex: use an index to use list like call features
+
+ser = pd.Series(np.arange(3.))
+
+ser
+
+ser[-1] # will yield an error msg
+
+ser
+
+ser2 = pd.Series(np.arange(3.), index=["a", "b", "c"])
+
+ser2[-1]
+
+# ex: use loc for labels or iloc for integers: you will get exactly what you want
+
+ser.iloc[-1]
+
+# ex:
+
+ser[:2]         # integer oriented slicing
+
+# always prefer indexing with loc and iloc to avoid ambiguity
+
+# Pitfalls with chained indexing
+
+# McKinney, Wes. Python for Data Analysis (p. 249). O'Reilly Media. Kindle Edition. 
+
+
