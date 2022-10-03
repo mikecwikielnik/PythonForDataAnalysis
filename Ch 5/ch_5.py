@@ -528,3 +528,41 @@ data
 
 # McKinney, Wes. Python for Data Analysis (p. 252). O'Reilly Media. Kindle Edition. 
 
+# ex:
+
+s1 = pd.Series([7.3, -2.5, 3.4, 1.5], index=["a", "c", "d", "e"])
+
+s2 = pd.Series([-2.1, 3.6, -1.5, 4, 3.1],
+               index=["a", "c", "e", "f", "g"])
+
+s1
+
+s2
+
+# adding s1 + s2 yields:
+
+s1 + s2         # this is a nice move
+
+# ex: with df, alignment is happens across both rows and columns
+
+df1 = pd.DataFrame(np.arange(9.).reshape((3, 3)), columns=list("bcd"),
+                index=["ohio", "texas", "colorado"])
+# pay attention to what happens between arange and reshape
+df2 = pd.DataFrame(np.arange(12.).reshape((4, 3)), columns=list("bde"),
+                   index=["utah", "ohio", "texas", "oregon"])
+
+df1
+
+df2
+
+df1 + df2       # look at the mathematics of ohio: "b", the arithmetic is carried out
+
+# elements that are not found in both, get NaN
+
+# a df with no column or row labels in common, the result will contain all nulls:
+
+# Arithmetic methods with fill values
+
+# McKinney, Wes. Python for Data Analysis (p. 255). O'Reilly Media. Kindle Edition. 
+
+
