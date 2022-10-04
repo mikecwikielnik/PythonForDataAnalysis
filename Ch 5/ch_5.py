@@ -565,4 +565,31 @@ df1 + df2       # look at the mathematics of ohio: "b", the arithmetic is carrie
 
 # McKinney, Wes. Python for Data Analysis (p. 255). O'Reilly Media. Kindle Edition. 
 
+# ex: when an axis label is found in one object but not the other:
+
+df1 = pd.DataFrame(np.arange(12.).reshape((3, 4)),
+                   columns=list("abcd"))
+
+df2 = pd.DataFrame(np.arange(20.).reshape(4, 5),
+                   columns=list("abcde"))
+
+df2.loc[1, "b"] = np.nan        # manually inputtin a nan value
+
+df1
+
+df2
+
+df1 + df2
+
+# ex: using the add method to fill in values. Takind df1 values and inputting them into the df2 df
+
+df1.add(df2, fill_value=0)
+
+# Table 5-5. Flexible arithmetic methods
+
+# McKinney, Wes. Python for Data Analysis (p. 257). O'Reilly Media. Kindle Edition. 
+
+# Operations between DataFrame and Series
+
+# McKinney, Wes. Python for Data Analysis (p. 258). O'Reilly Media. Kindle Edition. 
 
