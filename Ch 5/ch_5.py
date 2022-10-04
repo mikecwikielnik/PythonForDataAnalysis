@@ -709,3 +709,64 @@ frame
 
 frame.sort_index()      # 100% second nature
 
+frame.sort_index(axis="columns")
+
+frame.sort_index(axis="columns", ascending=False)       # typical SQL like programs
+
+# ex: sorting a Series by its values, use sort_values method:
+
+obj = pd.Series([4, 7, -3, 2])
+
+obj.sort_values()       # neat results
+
+# ex: missing values
+
+obj = pd.Series([4, np.nan, 7, np.nan, -3, 1])
+
+obj.sort_values()       # NaN at the end
+
+# ex: sort by NaN first
+
+obj.sort_values(na_position="first")
+
+# ex: specifically ordering your data 
+
+frame = pd.DataFrame({"b":[4, 7, -3, 2], "a":[0, 1, 0, 1]})
+
+frame
+
+frame.sort_values("b")
+
+# ex: to sort by multiple columns, pass a list of names:
+
+frame.sort_values(["a", "b"])
+
+# Ranking
+
+obj = pd.Series([7, -5, 7, 4, 2, 0, 4])
+
+obj.rank()
+
+# Ranking by the order in which they're observed in the data
+
+obj.rank(method="first")
+
+obj.rank(ascending=False)
+
+# ex: dataframes can compute ranks over the rows or the columns:
+
+frame = pd.DataFrame({"b": [4.3, 7, -3, 2], "a": [0, 1, 0, 1],
+                      "c": [-2, 5, 8, -2.5]})
+
+frame
+
+frame.rank(axis="columns")
+
+# Table 5-6. Tie-breaking methods with rank
+
+# McKinney, Wes. Python for Data Analysis (p. 269). O'Reilly Media. Kindle Edition. 
+
+# Axis Indexes with Duplicate Labels
+
+# McKinney, Wes. Python for Data Analysis (p. 270). O'Reilly Media. Kindle Edition. 
+
