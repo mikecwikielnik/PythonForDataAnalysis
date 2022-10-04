@@ -655,3 +655,57 @@ frame.sub(series3, axis="index")
 
 # McKinney, Wes. Python for Data Analysis (p. 261). O'Reilly Media. Kindle Edition. 
 
+# ex:
+
+frame = pd.DataFrame(np.random.standard_normal((4, 3)),         # you aren't crazy. ~ %68 of the values will be within -1, 1
+                     columns=list("bde"),                       # standard normal distribution 
+                     index=["utah", "ohio", "texas", "oregon"])
+
+frame
+
+np.abs(frame)   # taking the absolute value
+
+# this scratch first run I got ~70% within -1, 1
+
+frame4 = pd.DataFrame(np.random.standard_normal((10, 10)))
+
+frame4
+
+# ex: another frequent operation, dataframe's apply method
+
+def f1(x):
+        return x.max() - x.min()
+
+frame.apply(f1)         # some cases are: x - (-x) > x + x of the original df
+
+frame.apply(f1, axis="columns")         # apply across the columns
+
+# ex:
+
+def f2(x):
+        return pd.Series([x.min(), x.max()], index=["min", "max"])      # neat
+
+frame.apply(f2)
+
+# Sorting and Ranking
+
+# McKinney, Wes. Python for Data Analysis (p. 264). O'Reilly Media. Kindle Edition. 
+
+# sort_index method
+
+obj = pd.Series(np.arange(4), index=["d", "a", "b", "c"])
+
+obj
+
+obj.sort_index()        # interesting results
+
+# using a dataframe allows you to sort by index on either axis
+
+frame = pd.DataFrame(np.arange(8).reshape((2, 4)),
+                     index=["three", "one"],
+                     columns=["d", "a", "b", "c"])
+
+frame
+
+frame.sort_index()      # 100% second nature
+
