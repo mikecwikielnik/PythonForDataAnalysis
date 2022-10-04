@@ -593,3 +593,65 @@ df1.add(df2, fill_value=0)
 
 # McKinney, Wes. Python for Data Analysis (p. 258). O'Reilly Media. Kindle Edition. 
 
+# Note: a Series is a single column (n rows x 1 column) df, a df is a nxn matrix 
+# However, below, series = frame.iloc[o] is the first row in frame!
+# When series is called, it is printed as a single column
+
+# ex: consider the difference between a two-dimensional array and one of its rows:
+
+arr = np.arange(12.).reshape((3, 4))
+
+arr
+
+arr[0]
+
+arr - arr[0]    # subtraction is performed once for each row. You take the arr[0] and subtract from the other rows, element-wise
+
+# operations between a df and a Series are similar:
+
+frame = pd.DataFrame(np.arange(12.).reshape((4, 3)),
+                     columns=list("bde"),
+                     index=["utah", "ohio", "texas", "oregon"])
+
+series = frame.iloc[0]
+
+# ex: a small scratch example ############
+
+frame4 = pd.DataFrame(np.arange(16).reshape((4, 4)),
+                      columns=["mass", "ny", "fl", "lv"],
+                      index=["bruins", "rangers", "panthers", "golden knights"])
+
+frame4  # this needs to be second nature ab so lute ly
+
+###########################################
+
+frame
+
+series
+
+# ex: again the arithmetic happens element-wise
+
+frame - series
+
+# ex: if a col doesn't exist in both, it will yield NaN
+
+series2 = pd.Series(np.arange(3), index=["b", "e", "f"])        # d exists in frame but not in series2, f exists in series 2 but not frame
+
+series2
+
+frame + series2
+
+# ex: this is if you want to broadcast (aka do arithmetic across the columns)
+
+series3 = frame["d"]
+
+frame
+
+series3
+
+frame.sub(series3, axis="index")
+
+# Function Application and Mapping
+
+# McKinney, Wes. Python for Data Analysis (p. 261). O'Reilly Media. Kindle Edition. 
+
