@@ -9,6 +9,7 @@ McKinney, Wes. Python for Data Analysis (p. 206). O'Reilly Media. Kindle Edition
 
 McKinney, Wes. Python for Data Analysis (p. 207). O'Reilly Media. Kindle Edition. 
 '''
+from statistics import covariance
 import numpy as np
 
 import pandas as pd 
@@ -865,4 +866,50 @@ obj.describe()
 # Correlation and Covariance
 
 # McKinney, Wes. Python for Data Analysis (p. 277). O'Reilly Media. Kindle Edition. 
+
+# ex: consider some dataframes of stock prices and volumes 
+
+price = pd.read_pickle("../book files/examples/yahoo_price.pkl")
+
+volume = pd.read_pickle("../book files/examples/yahoo_volume.pkl")
+
+# compute the percent changes of the prices, a time series operation that will be explored in chapter 11
+
+returns = price.pct_change()
+
+returns.tail()
+
+# The corr method of Series computes the correlation of the overlapping, non-NA, aligned-by-index values in two Series.
+
+# cov computes the covariance
+
+# McKinney, Wes. Python for Data Analysis (p. 277). O'Reilly Media. Kindle Edition. 
+
+returns["MSFT"].corr(returns["IBM"])
+
+returns["MSFT"].cov(returns["IBM"])
+
+# ex: return a full correlation or covariance matrix as a df
+
+returns.corr()
+
+returns.cov()
+
+# corrwith method, you can compute pair-wise correlations between 
+
+# a DataFrame’s columns or rows with another Series or DataFrame.
+
+# McKinney, Wes. Python for Data Analysis (p. 278). O'Reilly Media. Kindle Edition. 
+
+# ex: passing a Series returns a Series with the correlation value computed for each column:
+
+returns.corrwith(returns["IBM"])
+
+# ex: a df computes the correlations of matching column names. Here, you compute correlations of %changes with volume:
+
+returns.corrwith(volume)
+
+# Unique Values, Value Counts, and Membership
+
+# McKinney, Wes. Python for Data Analysis (p. 279). O'Reilly Media. Kindle Edition. 
 
