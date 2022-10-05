@@ -770,3 +770,30 @@ frame.rank(axis="columns")
 
 # McKinney, Wes. Python for Data Analysis (p. 270). O'Reilly Media. Kindle Edition. 
 
+# ex: consider a small Series(column) with duplicate indices:
+
+obj = pd.Series(np.arange(5), index=["a", "a", "b", "b", "c"])
+
+obj     
+
+# is_unique tells you whether or not its labels are unique:
+
+obj.index.is_unique
+
+# neat trick
+
+obj["a"]
+
+obj["c"]
+
+# ex: be careful because of code having repeated labels
+
+df = pd.DataFrame(np.random.standard_normal((5, 3)),
+                  index=["a", "a", "b", "b", "c"])
+
+df
+
+df.loc["b"]     # not sure what the warning is. with pd.DataFrame, you have to use the loc operator
+
+df.loc["c"]
+
