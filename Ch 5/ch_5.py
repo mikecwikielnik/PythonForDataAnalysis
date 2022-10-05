@@ -797,3 +797,72 @@ df.loc["b"]     # not sure what the warning is. with pd.DataFrame, you have to u
 
 df.loc["c"]
 
+# 5.3 Summarizing and Computing Descriptive Statistics
+
+# McKinney, Wes. Python for Data Analysis (p. 272). O'Reilly Media. Kindle Edition. 
+
+# pandas objects are equipped with a set of common mathematical and statistical methods
+
+# reductions or summary statistics:
+
+# methods that extract a single value (like the sum or mean) from a Series, 
+
+# or a Series of values from the rows or columns of a DataFrame.
+
+# McKinney, Wes. Python for Data Analysis (p. 272). O'Reilly Media. Kindle Edition. 
+
+# ex: consider a small DataFrame
+
+df = pd.DataFrame([[1.4, np.nan], [7.1, -4.5],
+                   [np.nan, np.nan], [0.75, -1.3]],
+                  index=["a", "b", "c", "d"],
+                  columns=["one", "two"])
+
+df      # should be second nature
+
+# dataframes sum method returns a Series containing column sums
+
+df.sum()
+
+# Passing axis="columns" or axis=1 sums across the columns instead:
+
+df.sum(axis="columns")
+
+# ex: NaN values
+
+df.sum(axis="index", skipna=False)
+
+df.sum(axis="columns", skipna=False)
+
+df.mean(axis="columns")
+
+# Table 5-7. Options for reduction methods
+
+# McKinney, Wes. Python for Data Analysis (p. 274). O'Reilly Media. Kindle Edition. 
+
+# idxmin or idxmax returns the index value *where* the min or max values are attained
+
+df.idxmax()
+
+df.cumsum()
+
+#################################################### describe produces multiple summary statistics
+
+df.describe()
+
+####################################################
+
+# ex:
+
+obj = pd.Series(["a", "a", "b", "c"] * 4)
+
+obj.describe()
+
+# Table 5-8. Descriptive and summary statistics
+
+# McKinney, Wes. Python for Data Analysis (p. 275). O'Reilly Media. Kindle Edition. 
+
+# Correlation and Covariance
+
+# McKinney, Wes. Python for Data Analysis (p. 277). O'Reilly Media. Kindle Edition. 
+
