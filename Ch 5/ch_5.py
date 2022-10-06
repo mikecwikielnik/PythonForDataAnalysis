@@ -9,7 +9,7 @@ McKinney, Wes. Python for Data Analysis (p. 206). O'Reilly Media. Kindle Edition
 
 McKinney, Wes. Python for Data Analysis (p. 207). O'Reilly Media. Kindle Edition. 
 '''
-from statistics import covariance
+
 import numpy as np
 
 import pandas as pd 
@@ -912,4 +912,66 @@ returns.corrwith(volume)
 # Unique Values, Value Counts, and Membership
 
 # McKinney, Wes. Python for Data Analysis (p. 279). O'Reilly Media. Kindle Edition. 
+
+# ex:
+
+obj = pd.Series(["c", "a", "d", "a", "a", "b", "b", "c", "c"])
+
+obj.unique()    # this is show like in R, you can just check things w.o saving variables/objects
+
+uniques = obj.unique()
+
+uniques
+
+# ex: uniques.sort() and value_counts are kinda the same thing
+
+obj.value_counts()      # unique shows just the elements/ value_counts gives you the number of appeareances desc
+
+# value_counts is a top-level pandas method which means it is not nested and you can use anywhere. this def seems obvious
+
+pd.value_counts(obj.to_numpy(), sort=False)
+
+# ex: isin method gives a boolean value based on membership
+
+obj
+
+obj.isin(["b", "c"])
+
+mask = obj.isin(["b", "c"])
+
+mask
+
+obj[mask]
+
+# Table 5-9. Unique, value counts, and set membership methods
+
+# McKinney, Wes. Python for Data Analysis (p. 282). O'Reilly Media. Kindle Edition. 
+
+# ex: compute a histogram on related columns in a df
+
+data = pd.DataFrame({"Qu1": [1, 3, 4, 3, 4],
+                     "Qu2": [2, 3, 1, 2, 3],
+                     "Qu3": [1, 5, 2, 4, 4]})
+
+data    # should be second nature
+
+# compute the value counts for a single column
+
+data["Qu1"].value_counts().sort_index()         # in Qu1, 4 appeared 2
+
+# compute for all columns, use pandas.value_counts to the df's apply method:
+
+result = data.apply(pd.value_counts).fillna(0)  # this is a neat result
+
+result
+
+# ex: DataFrame.value_counts() yield ordered pair results
+
+data = pd.DataFrame({"a": [5, 5, 1, 0, 2], "b": [5, 5, 1, 0, 2]})
+
+data
+
+data.value_counts()     # ordered pair appearances, this is nice too
+
+
 
