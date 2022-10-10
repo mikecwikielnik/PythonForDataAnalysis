@@ -104,3 +104,19 @@ result3.isna()  # boolean check
 
 # McKinney, Wes. Python for Data Analysis (p. 298). O'Reilly Media. Kindle Edition. 
 
+# ex: make the pandas display settings more compact:
+
+pd.options.display.max_rows = 10    # top 5, and bottom 5
+
+result = pd.read_csv("../book files/examples/ex6.csv")
+
+result
+
+# ex: read a small number of rows
+
+pd.read_csv("../book files/examples/ex6.csv", nrows=5)
+
+# Writing Data to Text Format
+
+# McKinney, Wes. Python for Data Analysis (p. 300). O'Reilly Media. Kindle Edition. 
+
