@@ -120,3 +120,31 @@ pd.read_csv("../book files/examples/ex6.csv", nrows=5)
 
 # McKinney, Wes. Python for Data Analysis (p. 300). O'Reilly Media. Kindle Edition. 
 
+# ex: 
+
+data = pd.read_csv("../book files/examples/ex5.csv")
+
+data
+
+# ex: using to_csv, we can write the data out to a comma-separated file
+
+data.to_csv("../book files/examples/out.csv")
+
+# ex: sys.stdout prints text to console rather than a file
+
+import sys
+
+data.to_csv(sys.stdout, sep="|")
+
+# ex: here the missing values appear as empty strings, use other sentinel value
+
+data.to_csv(sys.stdout, na_rep="xYz")   # kind of neat!
+
+# ex: with no other options specified, both row/columns are written and can be disabled
+
+data.to_csv(sys.stdout, index=False, header=False)
+
+# Working with Other Delimited Formats
+
+# McKinney, Wes. Python for Data Analysis (p. 302). O'Reilly Media. Kindle Edition. 
+
