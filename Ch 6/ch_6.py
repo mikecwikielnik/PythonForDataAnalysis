@@ -26,8 +26,8 @@ McKinney, Wes. Python for Data Analysis (p. 286). O'Reilly Media. Kindle Edition
 
 # ex:
 
+from asyncore import write
 import csv
-from pickle import FALSE
 
 import pandas as pd 
 
@@ -147,4 +147,72 @@ data.to_csv(sys.stdout, index=False, header=False)
 # Working with Other Delimited Formats
 
 # McKinney, Wes. Python for Data Analysis (p. 302). O'Reilly Media. Kindle Edition. 
+
+# ex:
+
+import csv
+
+f = open("../book files/examples/ex7.csv")
+
+reader = csv.reader(f)
+
+# iterating through the reader yields lists of values with quotes removed
+
+for line in reader:
+    print(line)
+    
+f.close()
+
+# It is now up to us to do the wrangling needed
+
+# ex:
+
+# 1) read files into a list of lines
+
+with open("../book files/examples/ex7.csv") as f:
+    lines = list(csv.reader(f))
+    
+# 2) then we split the lines into the header line and the data lines:
+
+header, values = lines[0], lines[1:]
+
+# 3) then we create a dictionary of columns using a dict commprehension(one line program) & the expression zip(*values),
+# tranposes rows to columns:
+
+data_dict = {h: v for h, v in zip(header, zip(*values))}
+
+data_dict
+
+# ex:
+
+# 1) create a simple subclass of csv.Dialect
+
+class my_dialect(csv.Dialect):
+    lineterminator: str = "\n"
+    delimiter = ";"
+    quotechar = '"'
+    quoting = csv.QUOTE_MINIMAL
+    
+reader = csv.reader(f, dialect=my_dialect)
+
+# ex: we can give individual CSV dialect params as keywords to csv.reader w.o a subclass
+
+reader = csv.reader(f, delimiter="|")
+
+# Table 6-3. CSV dialect options
+
+# McKinney, Wes. Python for Data Analysis (p. 304). O'Reilly Media. Kindle Edition. 
+
+# ex: writing delimited files manually, use csv.writer
+
+with open("mydata.csv", "w") as f:
+    writer = csv.writer(f, dialect=my_dialect)
+    writer.writerow(("one", "two", "three"))
+    writer.writerow(("1", "2", "3"))
+    writer.writerow(("4", "5", "6"))
+    writer.writerow(("7", "8", "9"))
+    
+# JSON Data
+
+# McKinney, Wes. Python for Data Analysis (p. 306). O'Reilly Media. Kindle Edition. 
 
