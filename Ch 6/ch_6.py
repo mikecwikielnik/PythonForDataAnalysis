@@ -26,7 +26,7 @@ McKinney, Wes. Python for Data Analysis (p. 286). O'Reilly Media. Kindle Edition
 
 # ex:
 
-from asyncore import write
+
 import csv
 
 import pandas as pd 
@@ -215,4 +215,43 @@ with open("mydata.csv", "w") as f:
 # JSON Data
 
 # McKinney, Wes. Python for Data Analysis (p. 306). O'Reilly Media. Kindle Edition. 
+
+obj = """
+{"name": "Wes",
+"cities_lived": ["Akron", "Nashville", "New York", "San Francisco"],
+"pet": null,
+"siblings": [{"name": "Scott", "age": 34, "hobbies": ["guitars", "soccer"]},
+             {"name": "Katie", "age": 42, "hobbies": ["diving", "art"]}]
+}
+"""
+
+# ex: JSON
+
+import json
+
+result = json.loads(obj)
+
+result
+
+# ex: json.dumps
+
+asjson = json.dumps(result)
+
+asjson
+
+# ex: pass a list of dictionaries to the df constructor & select a subset
+
+siblings = pd.DataFrame(result["siblings"], columns=["name", "age"])
+
+siblings    # very cool
+
+# ex: default options for pandas.read_json assume each object in the json array is a row in a table
+
+data = pd.read_json("../book files/examples/example.json")
+
+data
+
+# XML and HTML: Web Scraping
+
+# McKinney, Wes. Python for Data Analysis (p. 309). O'Reilly Media. Kindle Edition. 
 
