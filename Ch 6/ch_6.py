@@ -27,6 +27,7 @@ McKinney, Wes. Python for Data Analysis (p. 286). O'Reilly Media. Kindle Edition
 # ex:
 
 
+from ast import parse
 import csv
 
 import pandas as pd 
@@ -254,4 +255,66 @@ data
 # XML and HTML: Web Scraping
 
 # McKinney, Wes. Python for Data Analysis (p. 309). O'Reilly Media. Kindle Edition. 
+
+# ex: 
+
+tables = pd.read_html("../book files/examples/fdic_failed_bank_list.html")
+
+len(tables)
+
+failures = tables[0]
+
+failures.head()
+
+failures.value_counts()
+
+a = failures["Bank Name"].unique()
+
+# ex: computing the number of bank failures by year
+
+close_timestamps = pd.to_datetime(failures["Closing Date"])
+
+close_timestamps.dt.year.value_counts()     # really nice insights
+
+# Parsing XML with lxml.objectify
+
+# McKinney, Wes. Python for Data Analysis (p. 311). O'Reilly Media. Kindle Edition. 
+
+# ex: 
+
+from lxml import objectify
+
+path = "../book files/datasets/mta_perf/Performance_MNR.xml"
+
+with open(path) as f:
+    parsed = objectify.parse(f)
+    
+root = parsed.getroot()
+
+data = []
+
+skip_fields = ["PARENT_SEQ", "INDICATOR_SEQ",
+               "DESIRED_CHANGE", "DECIMAL_PLACES"]
+
+for elt in root.INDICATOR:
+    el_data = {}
+    for child in elt.getchildren():
+        if child.tag in skip_fields:
+            continue
+        el_data[child.tag] = child.pyval
+    data.append(el_data)
+    
+# lastly, convert this list of dictionaries into a df
+
+perf = pd.DataFrame(data)
+
+perf.head()
+
+perf2 = pd.read_xml(path)
+
+perf2
+
+# 6.2 Binary Data Formats
+
+# McKinney, Wes. Python for Data Analysis (p. 316). O'Reilly Media. Kindle Edition. 
 
