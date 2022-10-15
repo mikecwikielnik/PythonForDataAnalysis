@@ -26,8 +26,6 @@ McKinney, Wes. Python for Data Analysis (p. 286). O'Reilly Media. Kindle Edition
 
 # ex:
 
-
-from ast import parse
 import csv
 
 import pandas as pd 
@@ -353,4 +351,68 @@ frame
 # 6.3 Interacting with Web APIs
 
 # McKinney, Wes. Python for Data Analysis (p. 323). O'Reilly Media. Kindle Edition. 
+
+import requests
+
+url = "https://api.github.com/repos/pandas-dev/pandas/issues"
+
+resp = requests.get(url)
+
+resp.raise_for_status()
+
+resp
+
+# ex: 
+
+data = resp.json()
+
+data[0]["title"]
+
+# ex: we can pass data directly to pandas.dataframe and extract fields of interest
+
+issues = pd.DataFrame(data, columns=["number", "title", "labels", "state"])
+
+issues
+
+# 6.4 Interacting with Databases
+
+# McKinney, Wes. Python for Data Analysis (p. 326). O'Reilly Media. Kindle Edition. 
+
+# ex: create a SQLite3 database using Python's sqlite3 
+
+import sqlite3
+
+query = """
+CREATE TABLE test
+(a VARCHAR(20), b VARCHAR(20),
+c REAL,         d INTEGER
+);"""
+
+con = sqlite3.connect("mydata.sqlite")
+
+con.execute(query)
+
+con.commit()
+
+# ex: insert a few rows of data
+
+data = [("Boston", "MA", 1.25, 6),
+        ("Jacksonville", "FL", 2.6, 3),
+        ("New York", "NY", 1.7, 5)]
+
+stmt = "INSERT INTO test VALUES(?, ?, ?, ?)"
+
+con.executemany(stmt, data)
+
+con.commit()
+
+cursor = con.execute("SELECT * FROM test")
+
+rows = cursor.fetchall()
+
+rows
+
+cursor.description
+
+pd.DataFrame(rows, columns=[x[0] for x in cursor.description])
 
