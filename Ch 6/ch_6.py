@@ -318,3 +318,19 @@ perf2
 
 # McKinney, Wes. Python for Data Analysis (p. 316). O'Reilly Media. Kindle Edition. 
 
+# ex: pickle module
+
+frame = pd.read_csv("../book files/examples/ex1.csv")
+
+frame
+
+frame.to_pickle("../book files/examples/frame_pickle")
+
+# ex: pandas.read_pickle
+
+pd.read_pickle("../book files/examples/frame_pickle")
+
+# Reading Microsoft Excel Files
+
+# McKinney, Wes. Python for Data Analysis (p. 317). O'Reilly Media. Kindle Edition. 
+
