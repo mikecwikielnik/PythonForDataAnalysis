@@ -334,3 +334,23 @@ pd.read_pickle("../book files/examples/frame_pickle")
 
 # McKinney, Wes. Python for Data Analysis (p. 317). O'Reilly Media. Kindle Edition. 
 
+# ex: 
+
+xlsx = pd.ExcelFile("../book files/examples/ex1.xlsx")
+
+xlsx.sheet_names
+
+xlsx.parse(sheet_name="Sheet1")
+
+xlsx.parse(sheet_name="Sheet1", index_col=0)
+
+# ex: pandas.read_excel
+
+frame = pd.read_excel("../book files/examples/ex1.xlsx", sheet_name="Sheet1")
+
+frame
+
+# 6.3 Interacting with Web APIs
+
+# McKinney, Wes. Python for Data Analysis (p. 323). O'Reilly Media. Kindle Edition. 
+
