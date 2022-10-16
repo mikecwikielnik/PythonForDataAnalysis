@@ -89,3 +89,21 @@ df.dropna(thresh=2)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# fillna() with a constant replaces missing values. workhorse function.
+
+df.fillna(100)
+
+# fillna() with a dictionary, you can use different value for each column
+
+df.fillna({1: 0.5, 2: 0.10})
+
+# ex: simple data imputation using the median or mean statistics with fillna()
+
+data = pd.Series([1., np.nan, 3.5, np.nan, 7])
+
+data.fillna(data.mean())
+
+# See Table 7-2 for a reference on fillna function arguments.
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
