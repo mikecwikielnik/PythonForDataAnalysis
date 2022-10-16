@@ -148,3 +148,42 @@ data.drop_duplicates(["k1", "k2"], keep="last")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: 
+
+data = pd.DataFrame({"food": ["bacon", "pulled pork", "bacon",
+                              "pastrami", "corned beef", "bacon",
+                              "pastrami", "honey ham", "nova lox"],
+                            "ounces": [4, 3, 12, 6, 7.5, 8, 3, 5, 6]})
+
+data    # you should know how to do this
+
+# ex: adding a column indicating the type of animal that each food came from
+
+meat_to_animal = {
+    "bacon": "pig",
+    "pulled pork": "pig",
+    "pastrami": "cow",
+    "corned beef": "cow",
+    "honey ham": "pig",
+    "nova lox": "salmon"
+}
+
+# ex: map method on a Series 
+
+data["animal"] = data["food"].map(meat_to_animal)   # data["food"].map(meat_to_animal) matches meat_to_animal to "food" 
+
+data
+
+# ex: we can also pass a function that does all the work
+
+def get_animal(x):
+    return meat_to_animal[x]
+
+data["food"].map(get_animal)
+
+# map is convenient to perform element-wise transformation
+
+# Replacing Values
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
