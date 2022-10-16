@@ -107,3 +107,44 @@ data.fillna(data.mean())
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+"""
+7.2 Data Transformation
+
+McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+"""
+
+# Removing Duplicates
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: 
+
+data = pd.DataFrame({"k1": ["one", "two"] * 3 + ["two"],
+                    "k2": [1, 1, 2, 3, 3, 4, 4]})
+
+data    # so easy
+
+# ex: duplicated method returns a boolean series indicating whether each row is a duplicate
+
+data.duplicated()
+
+# ex: drop_duplicates. duplicates are dropped (look at last row)
+
+data.drop_duplicates()
+
+# ex: Suppose we had an additional column of values and wanted to filter duplicates based on only the "k1" column
+
+data["v1"] = range(7)   # really nice trick
+
+data
+
+data.drop_duplicates(subset=["k1"])     # another really nice trick
+
+# ex: duplicated and drop_duplicates by default keep the last observed value combination. pass keep="last" will return the last one
+
+data.drop_duplicates(["k1", "k2"], keep="last")
+
+# Transforming Data Using a Function or Mapping
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
