@@ -187,3 +187,29 @@ data["food"].map(get_animal)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# map can be used to modify a subet of values, but 'replace' is simpler
+
+# ex: consider this Series
+
+data = pd.Series([1., -999., 2., -999., -1000., 3.])
+
+data
+
+data.replace(-999, np.nan)
+ 
+# if you want to replace multiple values at once, you pass a list
+
+data.replace([-999, -1000], np.nan)
+
+# to use a different replacement value, pass a list of substitutes
+
+data.replace([-999, -1000], [np.nan, 0])
+
+# you can do it via directory as well
+
+data.replace({-999: np.nan, -1000: 0})
+
+# Renaming Axis Indexes
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
