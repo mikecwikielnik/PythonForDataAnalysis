@@ -298,3 +298,23 @@ pd.qcut(data, [0, 0.1, 0.5, 0.9, 1.]).value_counts()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: df with some normally distributed data
+
+data = pd.DataFrame(np.random.standard_normal((1000, 4)))
+
+data.describe()
+
+# suppose you want to find values in one of the columns exceeding 3 in absolute value
+
+col = data[2]
+
+col[col.abs() > 3]
+
+# to select all rows having a value exceeding 3 or -3, you use the any method on a boolean df
+
+data[(data.abs() > 3).any(axis="columns")]
+
+# Permutation and Random Sampling
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
