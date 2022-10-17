@@ -213,3 +213,35 @@ data.replace({-999: np.nan, -1000: 0})
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: modifying axes in place 
+
+data = pd.DataFrame(np.arange(12).reshape((3, 4)),
+                    index=["ohio", "colorado", "new york"],
+                    columns=["one", "two", "three", "four"])
+
+# like a Series, the axis indexes have a map method
+
+def transform(x):
+    return x[:4].upper()
+
+data.index.map(transform)   # this is cool and a little obscure 
+
+# assigning the index attribute, this modifies the df in place
+
+data.index = data.index.map(transform)
+
+data
+
+# rename creates a modified view of the original df
+
+data.rename(index=str.title, columns=str.upper)
+
+# rename can be used with a dictionary which can provide new values
+
+data.rename(index={"ohio": "indiana"},
+            columns={"three": "peekaboo"})
+
+# Discretization and Binning
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
