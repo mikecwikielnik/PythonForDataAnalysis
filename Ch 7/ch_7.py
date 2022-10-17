@@ -4,6 +4,7 @@ Chapter 7. Data Cleaning and Preparation
 McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 """
 
+from tokenize import group
 import numpy as np
 
 import pandas as pd
@@ -242,6 +243,58 @@ data.rename(index={"ohio": "indiana"},
             columns={"three": "peekaboo"})
 
 # Discretization and Binning
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+ages = [20, 22, 25, 27, 21, 23, 37, 31, 61, 45, 41, 32]
+
+# divide into bins of 18-25, 26-35, 36-60, 61+. You have to use pandas.cut
+
+bins = [18, 25, 35, 60, 100]
+
+age_categories = pd.cut(ages, bins)
+
+age_categories
+
+# special categorical object
+
+age_categories.codes    
+
+age_categories.categories
+
+age_categories.categories[0]
+
+pd.value_counts(age_categories)     # bin coutns for the result of pandas.cut! this- you should know. 
+
+# pass a list or array to the labels option to use labels
+
+group_names = ["youth", "youngAdult", "middleAged", "senior"]
+
+pd.cut(ages, bins, labels=group_names)  # second nature
+
+# passing an integer creates uniform equal-length bins based on min/max
+
+# ex:
+
+data = np.random.uniform(size=20)
+
+pd.cut(data, 4, precision=6)    # 2 decimal places
+
+# panda.qcut
+
+data = np.random.standard_normal(1000)
+
+quartiles = pd.qcut(data, 4, precision=2)
+
+quartiles
+
+pd.value_counts(quartiles)  # neat
+
+# pass your own quartiles (numbers between 0 and 1)
+
+pd.qcut(data, [0, 0.1, 0.5, 0.9, 1.]).value_counts()
+
+# Detecting and Filtering Outliers
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
