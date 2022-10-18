@@ -4,7 +4,6 @@ Chapter 7. Data Cleaning and Preparation
 McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 """
 
-from tokenize import group
 import numpy as np
 
 import pandas as pd
@@ -318,3 +317,42 @@ data[(data.abs() > 3).any(axis="columns")]
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# permuting (randomly reordering) a Series or the rows in the df is possible under numpy.random.permutation function
+
+# permutations produces an array of integers indicating the new ordering
+
+df = pd.DataFrame(np.arange(5 * 7).reshape((5, 7)))
+
+df
+
+sampler = np.random.permutation(5)
+
+sampler
+
+# ex: take function or the iloc-based indexing
+
+df.take(sampler)
+
+df.iloc[sampler]
+
+# ex: axis="columns" selects a premutation of the columns
+
+column_sampler = np.random.permutation(7)
+
+column_sampler
+
+df.take(column_sampler, axis="columns")
+
+# ex: a random subset w.o replacement (same row can't appear twice), you use the sample method on a series & a df
+
+df.sample(n=3)
+
+# ex: to generate a sample with replacement, you use replace=True to sample
+
+choices = pd.Series([5, 7, -1, 6, 4])
+
+choices.sample(n=10, replace=True)
+
+# Computing Indicator/Dummy Variables
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
