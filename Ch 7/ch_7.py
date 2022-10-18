@@ -412,3 +412,47 @@ pd.get_dummies(pd.cut(values, bins))
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: create a Series of integers with a missing value
+
+s = pd.Series([1, 2, 3, None])
+
+s
+
+s.dtype
+
+# ex: create a Series instead using pandas.Int64Dtype
+
+s = pd.Series([1, 2, 3, None], dtype=pd.Int64Dtype())
+
+s
+
+s.isna()
+
+s.dtype
+
+# output <NA> means the value is missing 
+
+s[3]
+
+s[3] is pd.NA
+
+# ex: Categorical extension type
+
+# extension types allows you to convert easily as part of your data cleaning process
+
+df = pd.DataFrame({"A": [1, 2, None, 4],
+                   "B": ["one", "two", "three", None],
+                   "C": [False, None, False, True]})
+
+df
+
+df["A"] = df["A"].astype("Int64")
+df["B"] = df["B"].astype("string")
+df["c"] = df["C"].astype("boolean")
+
+df
+
+# 7.4 String Manipulation
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
