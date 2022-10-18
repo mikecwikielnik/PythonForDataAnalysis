@@ -4,6 +4,7 @@ Chapter 7. Data Cleaning and Preparation
 McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 """
 
+from typing_extensions import dataclass_transform
 import numpy as np
 
 import pandas as pd
@@ -356,3 +357,58 @@ choices.sample(n=10, replace=True)
 # Computing Indicator/Dummy Variables
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: pandas.get_dummies function 
+
+df = pd.DataFrame({"key": ["b", "b", "a", "c", "a", "b"],
+                    "data1": range(6)})
+
+df
+
+pd.get_dummies(df["key"])
+
+# ex: adding a prefix to the columns
+
+dummies = pd.get_dummies(df["key"], prefix="key")
+
+df_with_dummy = df[["data1"]].join(dummies)
+
+df_with_dummy
+
+# ex: movielens 1m dataset 
+
+mnames = ["movie_id", "title", "genres"]
+
+movies = pd.read_table("../book files/datasets/movielens/movies.dat", sep="::",
+                        header=None, names=mnames, engine="python")
+
+movies[:10]
+
+# ex: Series method str.get_dummies
+
+dummies = movies["genres"].str.get_dummies("|")
+
+dummies.iloc[:10, :6]
+
+# adding "Genre_" to the column names in the dummies df with the add_prefix method
+
+movies_windic = movies.join(dummies.add_prefix("Genre_"))
+
+movies_windic.iloc[0]
+
+# ex: a useful recipe for stats applications is to combine pandas.get_dummies with a discretization function like pandas.cut
+
+np.random.seed(12345)   # to make the example repeatable
+
+values = np.random.uniform(size=10)
+
+values
+
+bins = [0, 0.2, 0.4, 0.6, 0.8, 1]
+
+pd.get_dummies(pd.cut(values, bins))
+
+# 7.3 Extension Data Types
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
