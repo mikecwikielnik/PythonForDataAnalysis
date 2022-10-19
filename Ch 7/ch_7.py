@@ -4,7 +4,6 @@ Chapter 7. Data Cleaning and Preparation
 McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 """
 
-from typing_extensions import dataclass_transform
 import numpy as np
 
 import pandas as pd
@@ -453,6 +452,58 @@ df["c"] = df["C"].astype("boolean")
 df
 
 # 7.4 String Manipulation
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# Python Built-In String Object Methods
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: a comma-separated string can be broken into pieces with split
+
+val = "a,b, guido"
+
+val.split(",")
+
+# split is often combined with strip to trim whitespace
+
+pieces = [x.strip() for x in val.split(",")]
+
+pieces
+
+# substrings can be concatenated together w/ 2 colon delimeter using addition:
+
+first, second, third = pieces
+
+first + "::" + second + "::" + third
+
+# but this isn't practical. A better way is pass a list or tuple to the join method on teh string "::"
+
+"::".join(pieces)
+
+# ex: the in keyword is the best way to detect a substring, though index and find can also be used
+
+"guido" in val
+
+val.index(",")
+
+val.find(":")
+
+# ex: count returns number of occurences
+
+val.count(",")
+
+# ex: replace will sub occurences. it is also used to delete patterns by passing an empty string
+
+val.replace(",", "::")
+
+val.replace(",", "")
+
+# See Table 7-4 for a listing of some of Python’s string methods.
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# Regular Expressions
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
