@@ -507,3 +507,80 @@ val.replace(",", "")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: split a string with a variable number of whitespace characters(tabs, spaces, and newlines)
+
+# regex describing one or more whitespace characters is \s+
+
+import re
+
+text = "foo     bar\t baz    \tqux"
+
+re.split(r"\s+", text)
+
+# ex: compile using re.compile, forms a reusable regex object
+
+regex = re.compile(r"\s+")
+
+regex.split(text)
+
+# ex: listing all the patterns matching regex, you can use the findall method
+
+regex.findall(text)
+
+# re.compile is important when applying to many different strings
+
+# match and search are closely related to findall.
+# search returns first match.
+# match only matches the beginning of the string
+
+# ex: a block of text and a regular expression
+
+text = """Dave dave@google.com
+Steve steve@gmail.com
+Rob rob@gmail.com
+Ryan ryan@yahoo.com"""
+pattern = r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}"
+
+# re.IGNORECASE makes the regex case insensitive
+regex = re.compile(pattern, flags=re.IGNORECASE)
+
+# using findall produces a list of the email addresses
+
+regex.findall(text)
+
+# search returns a special match for the first email in the text 
+# the preceding regex, the match object can only tell us the start and end position
+
+m = regex.search(text)
+
+m
+
+text[m.start():m.end()]
+
+# regex.match returns None, as it will match only if the pattern occurs at the start of the string
+
+print(regex.match(text))
+
+# sub will return a new string with occurences of the pattern replaced by a new string
+
+print(regex.sub("REDACTED", text))
+
+# ex: you have emails and you want to split into username, domain name, and domain suffix.
+# you put paranthesis around the parts of the pattern to segment
+
+pattern = r"(A-Z0-9._%+-]+)@([A-Z0-9.-]+)\.([A-Z]{2,4})"
+
+regex = re.compile(pattern, flags=re.IGNORECASE)
+
+# a match object returns a tuple of the pattern componenets with its groups method
+
+m = regex.match("wesm@bright.net")
+
+m.groups()  # didn't work
+
+regex.findall(text)     # didn't work
+
+# String Functions in pandas
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
