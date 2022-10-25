@@ -584,3 +584,43 @@ regex.findall(text)     # didn't work
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+data = {"Dave": "dave@google.com", "Steve": "steve@gmail.com",
+        "Rob": "rob@gmail.com", "Wes": np.nan}
+
+data = pd.Series(data)
+
+data
+
+data.isna()
+
+# string and regex methods can be used on each value using data.map, but this will fail on NA values
+
+# ex: we could check whether each email address has "gmail" in with stir.contains:
+
+data.str.contains("gmail")
+
+# ex:
+
+data_as_string_ext = data.astype('string')  # this looks like it changes the data type to string
+
+data_as_string_ext
+
+data_as_string_ext.str.contains("gmail")
+
+# ex: vectorized element retrieval. Either use str.get or index into the str attribute:
+
+import re
+
+pattern = r"([A-Z0-9._%+-]+)@(A-Z0-9.-]+)\.([A-Z]{2,4})"
+
+data.str.findall(pattern, flags=re.IGNORECASE)
+
+matches = data.str.findall(pattern, flags=re.IGNORECASE).str[0]
+
+matches
+
+matches.str.get(1)
+
+# 7.5 Categorical Data
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
