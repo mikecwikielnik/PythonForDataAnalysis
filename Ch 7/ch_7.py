@@ -756,3 +756,23 @@ results
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: consider some series with 10 million elements and a small number of distinct changes
+
+n = 10_000_000
+
+labels = pd.Series(['foo', 'bar', 'baz', 'qux'] * (n // 4))
+
+# now we convert labels to categorical
+
+categories = labels.astype('category')
+
+# note, labels use more memory
+
+labels.memory_usage(deep=True)
+
+categories.memory_usage(deep=True)
+
+# Categorical Methods
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
