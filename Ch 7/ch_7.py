@@ -776,3 +776,37 @@ categories.memory_usage(deep=True)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: consider
+
+s = pd.Series(['a', 'b', 'c', 'd'] * 2)
+
+cat_s = s.astype('category')
+
+cat_s
+
+# the accessor attribute cat provides access to categorical methods
+
+cat_s.cat.codes
+
+cat_s.cat.categories
+
+# ex: we need to change the categoires so we have more categories
+
+actual_categories = ['a', 'b', 'c', 'd', 'e']
+
+cat_s2 = cat_s.cat.set_categories(actual_categories)
+
+cat_s2
+
+# verify new categories. use value_counts
+
+cat_s.value_counts()
+
+cat_s2.value_counts()
+
+# In larger data sets, categoricals are often used as a convenient tool for memory savings & better performance
+
+# Creating dummy variables for modeling
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
