@@ -810,3 +810,10 @@ cat_s2.value_counts()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex:
+
+cat_s = pd.Series(['a', 'b', 'c', 'd'] * 2, dtype='category')
+
+# pandas.get_dummies converts this 1D categorical data into a df containing the dummy var
+
+pd.get_dummies(cat_s)
