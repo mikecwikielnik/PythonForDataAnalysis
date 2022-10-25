@@ -624,3 +624,36 @@ matches.str.get(1)
 # 7.5 Categorical Data
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# Background and Motivation
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: unique and value_counts
+
+values = pd.Series(['apple', 'orange', 'apple', 'apple']*2)
+
+values
+
+pd.unique(values)
+
+pd.value_counts(values)
+
+# ex: dimension tables
+
+values = pd.Series([0, 1, 0, 0] * 2)
+
+dim = pd.Series(['apple', 'orange'])
+
+values
+
+dim
+
+# ex: take method restors the original Series of strings
+
+dim.take(values)
+
+# Categorical Extension Type in pandas
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
