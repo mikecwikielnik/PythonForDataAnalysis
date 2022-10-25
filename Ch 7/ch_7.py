@@ -657,3 +657,66 @@ dim.take(values)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: 
+
+fruits = ['apple', 'orange', 'apple', 'apple'] * 2
+
+N = len(fruits)
+
+rng = np.random.default_rng(seed=12345)
+
+df = pd.DataFrame({'fruit': fruits,
+                    'basket_id': np.arange(N),
+                    'count': rng.integers(3, 15, size=N),
+                    'weight': rng.uniform(0, 4, size=N)},
+                    columns=['basket_id', 'fruit', 'count', 'weight'])
+
+df
+
+# df['fruit'] is an array of Python string objects. We can convert it to categorical
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+fruit_cat = df['fruit'].astype('category')
+
+fruit_cat
+
+# ex: categorical objects
+
+c = fruit_cat.array
+
+type(c)
+
+# the categorical object has categories and code attributes
+
+c.categories
+
+c.codes
+
+# a trick to get a mapping between codes and categories is:
+
+dict(enumerate(c.categories))
+
+# ex: converting a df column to categorical by assigning the converted result:
+
+df['fruit'] = df['fruit'].astype('category')
+
+df['fruit']
+
+# ex: from_codes can indicate that the categories have a meaningful ordering
+
+categories = ['foo', 'bar', 'boo']
+
+codes = [0, 1, 2, 0, 0, 1]
+
+ordered_cat = pd.Categorical.from_codes(codes, categories, ordered=True)
+
+ordered_cat
+
+# ex:
+
+ordered_cat.as_ordered()
+
+# Computations with Categoricals
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
