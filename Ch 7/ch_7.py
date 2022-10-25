@@ -720,3 +720,39 @@ ordered_cat.as_ordered()
 # Computations with Categoricals
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+rng = np.random.default_rng(seed=12345)
+
+draws = rng.standard_normal(1000)
+
+draws[:5]
+
+# ex: Let's compute a quartile binning of the data and extract some statistics:
+
+bins = pd.qcut(draws, 4)
+
+bins
+
+# lets label the quartiles
+
+bins = pd.qcut(draws, 4, labels=['q1', 'q2', 'q3', 'q4'])
+
+bins
+
+bins.codes[:10]
+
+# let us use groupby to extract some summary statistics
+
+bins = pd.Series(bins, name='quartile')
+
+results = (pd.Series(draws)
+            .groupby(bins)
+            .agg(['count', 'min', 'max'])
+            .reset_index())
+
+results
+
+# Better performance with categoricals
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
