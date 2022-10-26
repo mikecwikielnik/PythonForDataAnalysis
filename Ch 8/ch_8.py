@@ -69,3 +69,23 @@ frame["ohio"]
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: swaplevel method 
+
+frame.index.names = ["key1", "key2"]
+
+frame.columns.names = ["state", "color"]
+
+frame.swaplevel("key1", "key2")
+
+# ex: sort_index by default sorts the data lexicographically 
+
+frame
+
+frame.sort_index(level=1)
+
+frame.swaplevel(0, 1).sort_index(level=0)   # this is important. it just swaps the keys
+
+# Summary Statistics by Level
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
