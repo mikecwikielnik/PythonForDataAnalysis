@@ -98,3 +98,33 @@ frame.groupby(level="color", axis="columns").sum()
 # Indexing with a DataFrame’s columns
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: 
+
+frame = pd.DataFrame({"a": range(7), "b": range(7, 0, -1),
+                        "c": ["one", "one", "one", "two", "two",
+                                "two", "two"],
+                        "d": [0, 1, 2, 0, 1, 2, 3]})
+
+frame
+
+# ex: set_index takes a new df using one or more of its columns as the index
+
+frame2 = frame.set_index(["c", "d"])
+
+frame2
+
+# the indexed cols are removed by default, they can be kept though
+
+# ex:
+
+frame.set_index(["c", "d"], drop=False)
+
+# ex: reset_index() 
+
+frame2.reset_index()
+
+# 8.2 Combining and Merging Datasets
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
