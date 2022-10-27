@@ -89,3 +89,12 @@ frame.swaplevel(0, 1).sort_index(level=0)   # this is important. it just swaps t
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: you can run descriptive & summary stats on a df, series at a specific level on a specific axis
+
+frame.groupby(level="key2").sum()       # could be important
+
+frame.groupby(level="color", axis="columns").sum()
+
+# Indexing with a DataFrame’s columns
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
