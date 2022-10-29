@@ -289,3 +289,79 @@ left2.join([right2, another], how="outer")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+arr = np.arange(12).reshape((3, 4))
+
+arr
+
+np.concatenate([arr, arr], axis=1)      # axis=1 puts the arrays next to each other, not ontop
+
+# ex: we have 3 series with no index overlap
+
+s1 = pd.Series([0, 1], index=["a", "b"], dtype="Int64")
+
+s2 = pd.Series([2, 3, 4], index=["c", "d", "e"], dtype="Int64")
+
+s3 = pd.Series([5, 6], index=["f", "g"], dtype="Int64")
+
+# calling pandas.concat with these obj in a list glues together the values/indexes
+
+s1
+s2
+s3
+
+pd.concat([s1, s2, s3])
+
+# By default, pandas.concat works along axis="index", producing another Series. 
+
+# If you pass axis="columns", the result will instead be a DataFrame:
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+pd.concat([s1, s2, s3], axis="columns")
+
+# union === outer join // intersection === inner join
+
+s4 = pd.concat([s1, s3])
+
+s4
+
+pd.concat([s1, s4], axis="columns", join="inner")
+
+# ex: you want to create a hierarchical index on the concat axis. To do this, use the key argument
+
+result = pd.concat([s1, s1, s3], keys=["one", "two", "three"])
+
+result
+
+result.unstack()
+
+# ex: combine series along axis="columns", the keys become the df column headers
+
+pd.concat([s1, s2, s3], axis="columns", keys=["one", "two", "three"])
+
+# ex: same logic applies to df
+
+df1 = pd.DataFrame(np.arange(6).reshape(3,2), index=["a", "b", "c"],
+                                columns=["one", "two"])
+
+df2 = pd.DataFrame(np.arange(4).reshape(2,2), index=["a", "c"],
+                                columns=["three", "four"])
+
+df1
+
+df2
+
+pd.concat([df1, df2], axis="columns", keys=["level1", "level2"])
+
+# ex: pass a dictionary of obj instead of a list. the dict keys will be used
+
+pd.concat({"level1": df1, "level2": df2}, axis="columns")
+
+# ex: you can create hierarchical index by creating axis levels with the names argument
+
+pd.concat([df1, df2], axis="columns", keys=["level1", "level2"], names=["upper", "lower"])
+
+# Combining Data with Overlap
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
