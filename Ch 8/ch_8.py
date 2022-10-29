@@ -128,3 +128,72 @@ frame2.reset_index()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# Database-Style DataFrame Joins
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex:
+
+df1 = pd.DataFrame({"key": ["b", "b", "a", "c", "a", "a", "b"],
+                        "data1": pd.Series(range(7), dtype="Int64")})
+
+df2 = pd.DataFrame({"key": ["a", "b", "d"],
+                        "data2": pd.Series(range(3), dtype="Int64")})
+
+df1
+
+df2
+
+# ex: a many-to-one join
+
+pd.merge(df1, df2)
+
+# practice specifying column names
+
+pd.merge(df1, df2, on="key")
+
+# ex: you can specify column names separately, even if they are different
+
+df3 = pd.DataFrame({"lkey": ["b", "b", "a", "c", "a", "a", "b"],
+                        "data1": pd.Series(range(7), dtype="Int64")})
+
+df4 = pd.DataFrame({"rkey": ["a", "b", "c"],
+                        "data2": pd.Series(range(3), dtype="Int64")})
+
+pd.merge(df3, df4, left_on="lkey", right_on="rkey")
+
+# ex: outer join
+
+pd.merge(df1, df2, how="outer")
+
+pd.merge(df3, df4, left_on="lkey", right_on="rkey", how="outer")
+
+# ex: many to many merges form the cartesian product of the matching keys
+
+df1 = pd.DataFrame({"key": ["b", "b", "a", "c", "a", "b"],
+                        "data1": pd.Series(range(6), dtype="Int64")})
+
+df2 = pd.DataFrame({"key": ["a", "b", "a", "b", "d"],
+                        "data2": pd.Series(range(5), dtype="Int64")})
+
+df1
+
+df2
+
+pd.merge(df1, df2, on="key", how="left")
+
+# ex: to merge multiple keys, pass a list of column names:
+
+left = pd.DataFrame({"key1": ["foo", "foo", "bar"],
+                        "key2": ["one", "two", "one"],
+                        "lval": pd.Series([1, 2, 3], dtype='Int64')})
+
+right = pd.DataFrame({"key1": ["foo", "foo", "bar", "bar"],
+                        "key2": ["one", "one", "one", "two"],
+                        "rval": pd.Series([4, 5, 6, 7], dtype='Int64')})
+
+pd.merge(left, right, on=["key1", "key2"], how="outer")
+
+# Merging on Index
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
