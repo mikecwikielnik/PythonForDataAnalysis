@@ -197,3 +197,95 @@ pd.merge(left, right, on=["key1", "key2"], how="outer")
 # Merging on Index
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: left_index=True or right_index=True (or both) indicate that the index should be used as the merge key
+
+left1 = pd.DataFrame({"key": ["a", "b", "a", "a", "b", "c"],
+                        "value": pd.Series(range(6), dtype="Int64")})
+
+right1 = pd.DataFrame({"group_val": [3.5, 7]}, index=["a","b"])
+
+left1 
+
+right1
+
+pd.merge(left1, right1, left_on="key", right_index=True)
+
+# default merge keys is to intersect the join keys, you can instead form a union of them w/ outer join
+
+# ex: union of sets is an outer join
+
+pd.merge(left1, right1, left_on="key", right_index=True, how="outer")
+
+# ex: with hierarchically indexed data, joining on index === to a multiple-key merge:
+
+lefth = pd.DataFrame({"key1": ["ohio", "ohio", "ohio",
+                                "nevada", "nevada"],
+                        "key2": [2000, 2001, 2002, 2001, 2002],
+                        "data": pd.Series(range(5), dtype="Int64")})
+
+righth_index = pd.MultiIndex.from_arrays(
+        [
+                ["nevada", "nevada", "ohio", "ohio", "ohio", "ohio"],
+                [2001, 2000, 2000, 2000, 2001, 2002]
+        ]
+)
+
+righth = pd.DataFrame({"event1": pd.Series([0, 2, 4, 6, 8, 10], dtype="Int64",
+                                index=righth_index),
+                        "event2": pd.Series([1, 3, 5, 7, 9, 11], dtype="Int64", 
+                                index=righth_index)})
+
+lefth
+
+righth
+
+# ex: you have to indicate mult cols to merge on a list
+
+pd.merge(lefth, righth, left_on=["key1", "key2"], right_index=True)
+
+pd.merge(lefth, righth, left_on=["key1", "key2"], right_index=True, how="outer")
+
+# ex: using indexes of both sides of the merge is possible
+
+left2 = pd.DataFrame([[1., 2.], [3., 4.], [5., 6.]], 
+                                        index=["a", "c", "e"], 
+                                        columns=["ohio", "nevada"]).astype("Int64")
+
+right2 = pd.DataFrame([[7., 8.], [9., 10.], [11., 12.], [13, 14]],
+                                        index=["b", "c", "d", "e"],
+                                        columns=["missouri", "alabama"]).astype("Int64")
+
+left2
+
+right2
+
+pd.merge(left2, right2, how="outer", left_index=True, right_index=True)
+
+# ex: df has a join instance method. of course it does.
+
+# in the prior example, you could have written:
+
+left2.join(right2, how="outer")
+
+# join performs a left join on the join keys by default
+
+left1.join(right1, on="key")
+
+# ex: for simple index-on-index merges, you can pass a list of dfs to join,
+# instead of using the more general pandas.concat function
+
+another = pd.DataFrame([[7., 8.], [9., 10.], [11., 12.], [16., 17.]],
+                        index=["a", "c", "e", "f"],
+                        columns=["new york", "oregon"])
+
+another
+
+left2.join([right2, another])
+
+left2.join([right2, another], how="outer")
+
+# Concatenating Along an Axis
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
