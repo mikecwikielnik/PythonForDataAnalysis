@@ -403,3 +403,64 @@ df1.combine_first(df2)  # again, df2 into df1, not df1 into df2
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# stack: this "rotates" or pivots from the columns to rows
+
+# unstack: this pivots from row into the columns
+
+# ex: row/column indexes are strings
+
+data = pd.DataFrame(np.arange(6).reshape((2,3)),
+                    index=pd.Index(["ohio", "colorado"], name="state"),
+                    columns=pd.Index(["one", "two", "three"],
+                    name="number"))
+
+data
+
+# using stack changes the df into a series:
+
+result = data.stack()
+
+result
+
+# the reverse of above
+
+result.unstack()
+
+# ex: you can unstack at different levels by passing a level number or name:
+
+result.unstack(level=0)         # the axes (indexes!) just switch. simple case.
+
+result.unstack(level="state")   # the same result
+
+# ex: unstacking could introduce missing data because values aren't found in each subgroup
+
+s1 = pd.Series([0, 1, 2, 3], index=["a", "b", "c", "d"], dtype="Int64")
+s2 = pd.Series([4,5,6], index=["c", "d", "e"], dtype="Int64")
+
+data2 = pd.concat([s1, s2], keys=["one", "two"])        # the cols on top of each other, index still on the left
+
+data2
+
+data2.unstack()
+
+data2.unstack().stack()
+
+data2.unstack().stack(dropna=False)
+
+# ex: unstack a df
+
+df = pd.DataFrame({"left": result, "right": result + 5},
+                columns=pd.Index(["left", "right"], name="side"))
+
+df
+
+df.unstack(level="state")
+
+# calling stack we can indicate the name of the axis to stack:
+
+df.unstack(level="state").stack(level="side")
+
+# Pivoting “Long” to “Wide” Format
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
