@@ -464,3 +464,71 @@ df.unstack(level="state").stack(level="side")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: time series wrangling and other data cleaning
+
+data = pd.read_csv("../book files/examples/macrodata.csv")
+
+data.head()
+
+data = data.loc[:, ["year", "quarter", "realgdp", "infl", "unemp"]]
+
+data.head()     # should be second nature
+
+# combine the year and quarter columns
+
+periods = pd.PeriodIndex(year=data.pop("year"),         # pop deletes the col while putting it in periods
+                        quarter=data.pop("quarter"),    # pop does the same thing here
+                        name="date")
+
+periods
+
+data.index = periods.to_timestamp("D")
+
+data.head()
+
+# select a subset of cols and give the cols index the name "item":
+
+data = data.reindex(columns=["realgdp", "infl", "unemp"])
+
+data.columns.name = "item"
+
+data.head()
+
+# reshape the stack, turn the new index levels into cols with reset_index & adding col name "values"
+
+long_data = (data.stack()
+                .reset_index()
+                .rename(columns={0: "value"}))
+
+long_data       # long format for mult time series
+
+# ex: df pivot method
+
+pivoted = long_data.pivot(index="date", columns="item", values="value")
+
+pivoted.head()
+
+# ex: two value cols that you want to reshape simultaneously
+
+long_data["value2"] = np.random.standard_normal(len(long_data))
+
+long_data[:10]
+
+# by omitting the last arg, you obtain a df with hierarchical cols
+
+pivoted = long_data.pivot(index="date", columns="item")
+
+pivoted.head()
+
+pivoted["value"].head()
+
+# ex: pivot is the same thing as set_index here followed by a unstack call
+
+unstacked = long_data.set_index(["date", "item"]).unstack(level="item")
+
+unstacked.head()
+
+# Pivoting “Wide” to “Long” Format
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
