@@ -66,3 +66,17 @@ plt.show()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+import matplotlib.pyplot as plt   
+import numpy as np
+
+fig, axes = plt.subplots(2, 2, sharex=True, sharey=True)
+for i in range(2):
+    for j in range(2):
+        axes[i, j].hist(np.random.standard_normal(500), bins=50, color="black", alpha=0.5)
+
+fig.subplots_adjust(wspace=0, hspace=0)
+
+# Colors, Markers, and Line Styles
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
