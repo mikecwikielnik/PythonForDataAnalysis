@@ -532,3 +532,28 @@ unstacked.head()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: inverse operation to pivot for df is pandas.melt. 
+# instead of transforming one col into many in a new df, it merges mult col into one
+
+df = pd.DataFrame({"key": ["foo", "bar", "baz"],
+                "A": [1, 2, 3],
+                "B": [4, 5, 6],
+                "C": [7, 8, 9]})
+
+df      # this should be second nature
+
+# using pandas.melt, we need to tell which col (if any) are group indicators. Let's use "key" here
+
+melted = pd.melt(df, id_vars="key")
+
+melted
+
+# using pivot. we can reshape back to the original layout
+
+reshaped = melted.pivot(index="key", columns="variable", values="value")
+
+reshaped        # second nature type of data manipulation
+
+# reshaped creates an index from the row labels, but we need reset_index to get the data back
+
+reshaped.reset_index()
