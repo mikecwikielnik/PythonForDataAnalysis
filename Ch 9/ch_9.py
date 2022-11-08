@@ -110,3 +110,29 @@ ax.legend()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# Setting the title, axis labels, ticks, and tick labels
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+fig, ax = plt.subplots()    # fig is the canvas (axis included) if u will // ax is the data
+
+ax.plot(np.random.standard_normal(1000).cumsum());
+
+# to change the x-axis ticks, use set_xticks and set_xticklabels
+
+ticks = ax.set_xticks([0, 250, 500, 750, 1000])
+
+labels = ax.set_xticklabels(["one", "two", "three", "four", "five"], rotation=30, fontsize=8)
+
+# set_xlabel gives a name to the x-axis and set_title is the subplot title
+
+ax.set_xlabel("Stages")
+
+ax.set_title("My first matplotlib plot")
+
+ax.set(title="My first matplotlib plot", xlabel="Stages")   # is another way to write it
+
+# Adding legends
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
