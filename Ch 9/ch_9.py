@@ -80,3 +80,33 @@ fig.subplots_adjust(wspace=0, hspace=0)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: to plot x versus y with green dashes:
+
+# ax.plot(x, y, linestyle="--", color="green")
+
+# ex: more styling options
+
+fig = plt.figure()
+
+ax = fig.add_subplot()
+
+ax.plot(np.random.standard_normal(30).cumsum(), color="black", linestyle="dashed", marker="o");
+
+plt.show()
+
+# ex: drawstyle option
+
+fig = plt.figure()
+
+ax = fig.add_subplot()
+
+data = np.random.standard_normal(30).cumsum()
+
+ax.plot(data, color="black", linestyle="dashed", label="Default");
+ax.plot(data, color="black", linestyle="dashed", drawstyle="steps-post", label="stephs-post");
+ax.legend()
+
+# Ticks, Labels, and Legends
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
