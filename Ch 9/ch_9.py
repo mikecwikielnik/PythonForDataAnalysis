@@ -216,3 +216,25 @@ plt.rc("font", family="monospace", weight="bold", size=9)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# Line Plots
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+s = pd.Series(np.random.standard_normal(10).cumsum(), index=np.arange(0, 100, 10))
+
+s.plot()
+
+# ex:
+
+df = pd.DataFrame(np.random.standard_normal((10, 4)).cumsum(0),
+                columns=["A", "B", "C", "D"],
+                index=np.arange(0, 100, 10))
+
+plt.style.use('grayscale')
+
+df.plot()
+
+# Bar Plots
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
