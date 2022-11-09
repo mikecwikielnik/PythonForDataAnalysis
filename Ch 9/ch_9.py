@@ -206,3 +206,13 @@ fig.savefig("figpath.svg")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+plt.rc("figure", figsize=(10, 10))
+
+# write it as a dictionary
+
+plt.rc("font", family="monospace", weight="bold", size=9)
+
+# 9.2 Plotting with pandas and seaborn
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
