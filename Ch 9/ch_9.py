@@ -198,3 +198,11 @@ ax.add_patch(pgon)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: save an SVG version of a figure
+
+fig.savefig("figpath.svg")
+
+# matplotlib Configuration
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
