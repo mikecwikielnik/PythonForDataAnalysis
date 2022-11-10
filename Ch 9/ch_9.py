@@ -335,3 +335,27 @@ sns.histplot(values, bins=100, color="black")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: load macrodata, select var, then compute log diff
+
+macro = pd.read_csv("../book files/examples/macrodata.csv")
+
+# macro.columns   # your typical R check
+
+data = macro[["cpi", "m1", "tbilrate", "unemp"]]
+
+trans_data = np.log(data).diff().dropna()
+
+trans_data.tail()
+
+# seaborns regplot method, makes a scatter plot and fits a linear regression line! 
+
+ax = sns.regplot(x="m1", y="unemp", data=trans_data).set(title="Changes in log(m1) versus log(unemp)")
+
+# ex: seaborn's pairplot or scatter plot matrix
+
+sns.pairplot(trans_data, diag_kind="kde", plot_kws={"alpha": 0.2})  # talk about a beautiful visual
+
+# Facet Grids and Categorical Data
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
