@@ -238,3 +238,73 @@ df.plot()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# plot.bar() and plot.barh() // x (bar) or y (barh) ticks
+
+fig, axes = plt.subplots(2, 1)
+
+data = pd.Series(np.random.uniform(size=16), index=list("abcdefghijklmnop"))
+
+data.plot.bar(ax=axes[0], color="black", alpha=0.7)
+
+data.plot.barh(ax=axes[1], color="black", alpha=0.7)
+
+# ex: with a df, bar plots group the values, side by side:
+
+df = pd.DataFrame(np.random.uniform(size=(6, 4)),
+                index=["one", "two", "three", "four", "five", "six"],
+                columns=pd.Index(["A", "B", "C", "D"], name="Genus"))
+
+df
+
+df.plot.bar()   # genus is in the legend
+
+df.plot.barh(stacked=True, alpha=0.5)   # very pretty
+
+# ex: restaurant tipping
+
+tips = pd.read_csv("../book files/examples/tips.csv")
+
+tips.head()
+
+party_counts = pd.crosstab(tips["day"], tips["size"])
+
+party_counts
+
+party_counts = party_counts.reindex(index=["Thur", "Fri", "Sat", "Sun"])    # capitalization matters here
+
+party_counts
+
+# remove 1 & 6 person parties
+
+party_counts = party_counts.loc[:, 2:5]
+
+# normalize so that each row sums to 1, and then plot. 
+
+# normalize to sum to 1
+
+party_pcts = party_counts.div(party_counts.sum(axis="columns"), axis="index")
+
+party_pcts
+
+party_pcts.plot.bar(stacked=True)   # gorgeous 
+
+# ex: look at the pct of tipping by day w/ seaborn
+
+
+import seaborn as sns
+
+tips["tip_pct"] = tips["tip"] / (tips["total_bill"] - tips["tip"])
+
+tips.head()
+
+sns.barplot(x="tip_pct", y="day", data=tips, orient="h")    # v nice
+
+# ex: seaborn.barplot has a hue option
+
+sns.barplot(x="tip_pct", y="day", hue="time", data=tips, orient="h")    # another beaut
+
+# ex: switch plot appearances using seaborn.set_style
+
+sns.set_style("whitegrid")
+
+sns.set_palette("Greys_r")
