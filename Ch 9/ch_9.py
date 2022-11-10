@@ -359,3 +359,18 @@ sns.pairplot(trans_data, diag_kind="kde", plot_kws={"alpha": 0.2})  # talk about
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: seaborn's catplot
+
+sns.catplot(x="day", y="tip_pct", hue="time", col="smoker", kind="bar", data=tips[tips.tip_pct < 1])
+
+# ex: expand the facet grid by adding one row per time value
+
+sns.catplot(x="day", y="tip_pct", row="time",
+            col="smoker",
+            kind="bar", data=tips[tips.tip_pct < 1])
+
+# ex: box plots
+
+sns.catplot(x="tip_pct", y="day", kind="box",
+            data=tips[tips.tip_pct < 0.5])
+
