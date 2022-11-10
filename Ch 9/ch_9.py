@@ -308,3 +308,30 @@ sns.barplot(x="tip_pct", y="day", hue="time", data=tips, orient="h")    # anothe
 sns.set_style("whitegrid")
 
 sns.set_palette("Greys_r")
+
+# Histograms and Density Plots
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: histogram of tip pct of the total bill using plot.hist on a series
+
+tips["tip_pct"].plot.hist(bins=50)
+
+# ex: density plot
+
+tips["tip_pct"].plot.density()
+
+# ex: histplot method, plots both a histogram and a continuous density estimate simultaneously
+
+comp1 = np.random.standard_normal(200)
+
+comp2 = 10 + 2 * np.random.standard_normal(200)
+
+values = pd.Series(np.concatenate([comp1, comp2]))
+
+sns.histplot(values, bins=100, color="black")
+
+# Scatter or Point Plots
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
