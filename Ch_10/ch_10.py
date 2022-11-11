@@ -185,3 +185,21 @@ people.groupby([len, key_list]).min()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: aggregate using one of the levels of an axis index of hierarchically indexed datasets
+
+columns = pd.MultiIndex.from_arrays([["us", "us", "us", "jp", "jp"],
+                                    [1, 3, 5, 1, 3]],
+                                    names=["cty", "tenor"])
+
+hier_df = pd.DataFrame(np.random.standard_normal((4, 5)), columns=columns)
+
+hier_df     # very cool 
+
+# to group by level, pass the level number or name using the level keyword:
+
+hier_df.groupby(level="cty", axis="columns").count()
+
+# 10.2 Data Aggregation
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
