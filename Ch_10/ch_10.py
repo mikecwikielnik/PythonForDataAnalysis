@@ -138,3 +138,36 @@ s_grouped.mean()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: 
+
+people = pd.DataFrame(np.random.standard_normal((5, 5)),
+                      columns=["a", "b", "c", "d", "e"],
+                      index=["joe", "steve", "wanda", "jill", "trey"])
+
+people.iloc[2:3, [1,2]] = np.nan    # add a few NA values
+
+people
+
+# suppose i have a group correspondence for the cols and want to sum the cols by group
+
+mapping = {"a": "red", "b": "red", "c": "blue",
+           "d": "blue", "e": "red", "f": "orange"}
+
+# here you can pass the dict, the key f won't be included which is ok as demonstrated below
+
+by_column = people.groupby(mapping, axis="columns")
+
+by_column.sum()
+
+# same can be done for a series, this can be viewed as a fixed-size mapping
+
+map_series = pd.Series(mapping)
+
+map_series
+
+people.groupby(map_series, axis="columns").count()
+
+# Grouping with Functions
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
