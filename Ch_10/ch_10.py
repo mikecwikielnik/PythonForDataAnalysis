@@ -112,3 +112,29 @@ for group_key, group_values in grouped:
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex:
+
+df.groupby("key1")["data1"]
+df.groupby("key1")[["data2"]]
+
+# are conveniences for
+
+df["data1"].groupby(df["key1"])
+df[["data2"]].groupby(df["key1"])
+
+# ex: compute the means for just the data2 col and get the result as a df
+
+df.groupby(["key1", "key2"])[["data2"]].mean()
+
+# ex: indexing operation returns a grouped df if a list/arr is passed OR a grouped series if a single col is passed 
+
+s_grouped = df.groupby(["key1", "key2"])["data2"]
+
+s_grouped
+
+s_grouped.mean()
+
+# Grouping with Dictionaries and Series
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
