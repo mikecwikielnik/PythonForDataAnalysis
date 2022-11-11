@@ -79,3 +79,36 @@ df  # do the groupby().count() or groupby().size() with ur finger, it helps with
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: 
+
+for name, group in df.groupby("key1"):
+    print(name)
+    print(group)
+
+# in case of multiple keys, the first element in the tuple will be a tuple of keys
+
+for (k1, k2), group in df.groupby(["key1", "key2"]):
+    print((k1, k2))
+    print(group)
+
+# a useful thing to do is computing a dict of the data pieces as a one-liner
+
+pieces = {name: group for name, group in df.groupby("key1")}
+
+pieces["b"]
+
+# ex: groupby some axis
+
+grouped = df.groupby({"key1": "key", "key2": "key",
+                      "data1": "data", "data2": "data"}, axis="columns")
+
+# we cn print out the groups like so:
+
+for group_key, group_values in grouped:
+    print(group_key)
+    print(group_values)
+
+# Selecting a Column or Subset of Columns
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
