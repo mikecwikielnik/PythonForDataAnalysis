@@ -171,3 +171,17 @@ people.groupby(map_series, axis="columns").count()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: group by name length
+
+people.groupby(len).sum()
+
+# mixing fn with arrays, dict, or series is not a problem. everything gets converted to arrays internally
+
+key_list = ["one", "one", "one", "two", "two"]
+
+people.groupby([len, key_list]).min()
+
+# Grouping by Index Levels
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
