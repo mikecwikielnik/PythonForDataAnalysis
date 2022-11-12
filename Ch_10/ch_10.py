@@ -228,3 +228,55 @@ grouped.describe()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+tips = pd.read_csv("../book files/examples/tips.csv")
+
+tips.head()
+
+# now add a tip_pct col with the tip % of the total bill
+
+tips["tip_pct"] = tips["tip"] / tips["total_bill"]  # this is how you add another col to the df
+
+tips.head()
+
+# ex: group the tips by day and smoker
+
+grouped = tips.groupby(["day", "smoker"])
+
+grouped_pct = grouped["tip_pct"]
+
+grouped_pct.agg("mean")
+
+# if you pass a list of fn's or fn names instead, you get back a df w/ col names taken from the fn
+
+grouped_pct.agg(["mean", "std", peak_to_peak])
+
+grouped_pct.agg([("average", "mean"), ("stdev", np.std)])
+
+# df's have more options. To start, suppose we wanted to compute the same 3 statistics for tip_pct and total_bill
+
+functions = ["count", "mean", "max"]
+
+result = grouped[["tip_pct", "total_bill"]].agg(functions)  # this is very dope
+
+result
+
+result["tip_pct"]   # you have to get accustomed to using this syntax in python like u did R
+
+# ex: a list of tuples with custom names can be passed:
+
+ftuples = [("Average", "mean"), ("Variance", np.var)]
+
+grouped[["tip_pct", "total_bill"]].agg(ftuples)
+
+# ex: suppose you wanted to apply diff fn's to 1 or more cols. To do, pass a dict to agg that contains
+# a mapping of col names to any of the fun specifications listed so far:
+
+grouped.agg({"tip": np.max, "size": "sum"})
+
+grouped.agg({"tip_pct": ["min", "max", "mean", "std"],
+            "size": "sum"})
+
+# Returning Aggregated Data Without Row Indexes
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
