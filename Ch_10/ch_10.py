@@ -335,3 +335,45 @@ tips.groupby("smoker", group_keys=False).apply(top)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: simple random dataset and an equal-length bucket categorization using pandas.cut
+
+frame = pd.DataFrame({"data1": np.random.standard_normal(1000),
+                      "data2": np.random.standard_normal(1000)})
+
+frame.head()
+
+quartiles = pd.cut(frame["data1"], 4)   # categorical obj
+
+quartiles.head(10)
+
+# ex: categorical obj can be passed to groupby. We can compute a set of group statistics for the quartiles
+
+def get_stats(group):
+    return pd.DataFrame(
+        {"min": group.min(), "max": group.max(),
+        "count": group.count(), "mean": group.mean()}
+    )
+
+grouped = frame.groupby(quartiles)
+
+grouped.apply(get_stats)
+
+# Note: the same result above could have been computed simply by:
+
+grouped.agg(["min", "max", "count", "mean"])
+
+# ex: equal-sized buckets based on sample quantiles, use pandas.cut
+# you can pass 4 as the num of buckets, & pass labels=False to obtain the quartile indices instead of intervals
+
+quartiles_samp = pd.qcut(frame["data1"], 4, labels=False)
+
+quartiles_samp.head()
+
+grouped = frame.groupby(quartiles_samp)
+
+grouped.apply(get_stats)
+
+# Example: Filling Missing Values with Group-Specific Values
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
