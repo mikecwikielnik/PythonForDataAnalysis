@@ -280,3 +280,9 @@ grouped.agg({"tip_pct": ["min", "max", "mean", "std"],
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+tips.groupby(["day", "smoker"], as_index=False).mean()  # use as_index=False to avoid unnecessary things
+
+# 10.3 Apply: General split-apply-combine
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
