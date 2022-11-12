@@ -203,3 +203,28 @@ hier_df.groupby(level="cty", axis="columns").count()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# table 10-1. Optimized groupby methods
+
+# ex: 
+
+df 
+
+grouped = df.groupby("key1")
+
+grouped["data1"].nsmallest(2)
+
+# ex: to use your own aggregation functions, pass a fn that agg an arr to the agg method
+
+def peak_to_peak(arr):
+    return arr.max() - arr.min()
+
+grouped.agg(peak_to_peak)
+
+# ex: THE ALL IMPORTANT DESCRIBE METHOD
+
+grouped.describe()
+
+# Column-Wise and Multiple Function Application
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
