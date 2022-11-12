@@ -286,3 +286,44 @@ tips.groupby(["day", "smoker"], as_index=False).mean()  # use as_index=False to 
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# the most general-purpose groupby method is apply. 
+
+"""
+apply splits the object being manipulated into pieces, 
+
+invokes the passed function on each piece, 
+
+and then attempts to concatenate the pieces.
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+"""
+
+# ex: suppose you wanted to select the top five tip_pct values by group
+
+# first, write a fun that selects the rows w/ the max values in some col
+
+def top(df, n=5, column="tip_pct"):
+    return df.sort_values(column, ascending=False)[:n]
+
+top(tips, n=6)
+
+# Now, if we group by smoker, & call apply w/ this fn. we get the following:
+
+tips.groupby("smoker").apply(top)
+
+# if apply takes other args or keywords, pass them after the fn
+
+tips.groupby(["smoker", "day"]).apply(top, n=1, colummn="total_bill")
+
+# ex: describe method
+
+result = tips.groupby("smoker")["tip_pct"].describe()
+
+result  # very nice table
+
+result.unstack("smoker")
+
+# Suppressing the Group Keys
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
