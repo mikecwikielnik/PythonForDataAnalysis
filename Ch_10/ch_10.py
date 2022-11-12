@@ -327,3 +327,11 @@ result.unstack("smoker")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex:
+
+tips.groupby("smoker", group_keys=False).apply(top)
+
+# Quantile and Bucket Analysis
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
