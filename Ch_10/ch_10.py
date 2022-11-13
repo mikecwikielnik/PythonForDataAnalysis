@@ -438,3 +438,47 @@ data.groupby(group_key).apply(fill_func)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: suppose you want to draw a random sample, w or w.o replacement- like a monte carlo simulation
+
+# below we use the sample method for a series
+
+# to demonstrate, here's a way to construct a deck of playing cards! 
+
+suits = ["H", "S", "C", "D"]    # hearts, spades, clubs, diamonds
+card_val = (list(range(1, 11)) + [10] *3) * 4
+base_names = ["A"] + list(range(2, 11)) + ["J", "Q", "K"]
+cards = []
+for suit in suits:
+    cards.extend(str(num) + suit for num in base_names)
+
+deck = pd.Series(card_val, index=cards)
+
+deck.head(13)     # a series of length 52
+
+len(deck)
+
+# drawing a hand of five cards from the deck could be written as:
+
+def draw(deck, n=5):
+    return deck.sample(n)   # .sample() looks interesting
+
+draw(deck)
+
+# suppose you wanted 2 random cards from each suit. 
+# because the suit is the last char of each card name 7D, KH, etc
+# we can group based on this and use apply:
+
+def get_suit(card):
+    # last letter is suit
+    return card[-1]
+
+deck.groupby(get_suit).apply(draw, n =2)
+
+# or we could pass group_keys=False to drop the outer suit index, leaving in the selected cards:
+
+deck.groupby(get_suit, group_keys=False).apply(draw, n=2)
+
+# Example: Group Weighted Average and Correlation
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
