@@ -377,3 +377,64 @@ grouped.apply(get_stats)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# to remove NA's, use dropna
+# to full NA's, use fillna
+
+# ex: fill the null values with the mean:
+
+s = pd.Series(np.random.standard_normal(6))
+
+s[::2] = np.nan 
+
+s
+
+s.fillna(s.mean())  # v important
+
+# ex: suppose you need the fill value to vary by group. 
+
+# 1) group the data 2) use apply w/ a fn that calls fill na on each data chunk
+
+# ex: us divided into east and west
+
+states = ["ohio", "new york", "vermont", "florida", "oregon", "nevada",
+        "california", "idaho"]
+
+group_key = ["east", "east", "east", "east", "west", "west", "west", "west"]
+
+data = pd.Series(np.random.standard_normal(8), index=states)
+
+data
+
+# lets set some values to NA
+
+data[["vermont", "nevada", "idaho"]] = np.nan
+
+data
+
+data.groupby(group_key).size()
+
+data.groupby(group_key).count()
+
+data.groupby(group_key).mean()
+
+# ex: fill the NA values using the group means, like so
+
+def fill_mean(group):
+    return group.fillna(group.mean())
+
+data.groupby(group_key).apply(fill_mean)
+
+# ex: put certain values for certain groups/keys?
+# the groups have a name attribute set internally
+
+fill_values = {"east": 0.5, "west": -1}
+
+def fill_func(group):
+    return group.fillna(fill_values[group.name])
+
+data.groupby(group_key).apply(fill_func)
+
+# Example: Random Sampling and Permutation
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
