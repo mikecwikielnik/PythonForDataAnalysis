@@ -542,3 +542,17 @@ by_year.apply(corr_aapl_msft)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# groupby is used to perform group-wise statistical analysis
+# below uses the statsmodels econometrics library
+
+import statsmodels.api as sm
+def regress(data, yvar=None, xvars=None):
+    Y = data[yvar]
+    X = data[xvars]
+    X["intercept"] = 1.
+    result = sm.OLS(Y, X).fit()
+    return result.params    
+
+by_year.apply(regress, yvar="AAPL", xvars=["SPX"])  # linear regression
+
+
