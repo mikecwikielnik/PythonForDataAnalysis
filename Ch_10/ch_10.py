@@ -482,3 +482,63 @@ deck.groupby(get_suit, group_keys=False).apply(draw, n=2)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# split-apply-combine paradigm of groupby means
+# operations bet col in a df or two series, s.a a group weighted avg, are possible
+
+# ex: this dataset w/ group keys, values, and some weights
+
+df = pd.DataFrame({"category": ["a", "a", "a", "a",
+                                "b", "b", "b", "b"],
+                    "data": np.random.standard_normal(8),
+                    "weights": np.random.uniform(size=8)})
+
+df
+
+# the weighted avg by category would then be:
+
+grouped = df.groupby("category")
+
+def get_wavg(group):
+    return np.average(group["data"], weights=group["weights"])
+
+grouped.apply(get_wavg)
+
+# ex: EOD prices for stocks and s&p index (spx):
+
+close_px = pd.read_csv("../book files/examples/stock_px.csv", parse_dates=True, index_col=0)
+
+close_px.info()
+
+close_px.tail(4)
+
+# ex: compute the yearly correlations of daily returns (computed from percent changes) w/ spx
+
+# one way to do this, 1) create a fn that computes the pair-wise correlation of each col w/ the spx col
+
+def spx_corr(group):
+    return group.corrwith(group["SPX"])
+
+# next, we compute precent change on close_px using pct_change:
+
+rets = close_px.pct_change().dropna()
+
+# group the percent changes by year
+
+def get_year(x):
+    return x.year
+
+by_year = rets.groupby(get_year)
+
+by_year.apply(spx_corr)
+
+# ex: you can also do intercolumn correlations
+
+def corr_aapl_msft(group):
+    return group["AAPL"].corr(group["MSFT"])
+
+by_year.apply(corr_aapl_msft)
+
+# Example: Group-Wise Linear Regression
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
