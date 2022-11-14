@@ -555,4 +555,72 @@ def regress(data, yvar=None, xvars=None):
 
 by_year.apply(regress, yvar="AAPL", xvars=["SPX"])  # linear regression
 
+# 10.4 Group Transforms and “Unwrapped” GroupBys
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: consider a simple example of the transform method
+
+df = pd.DataFrame({'key': ['a', 'b', 'c'] * 4,
+                    'value': np.arange(12.)})
+
+df
+
+# here are the group means by key:
+
+g = df.groupby('key')['value']
+
+g.mean()
+
+# spose we wanted a series of the same shape as df['value'] (1x12)
+# but w/ values replaced by the avg grouped by 'key. 
+# we can pass a fn that computes the mean of a single group to transform:
+
+def get_mean(group):
+    return group.mean()
+
+g.transform(get_mean)
+
+# ex: we can pass as a string alias as w/ the groupby agg method:
+
+g.transform('mean')     # does the same thing as g.transform(get_mean) // prolly easier
+
+# like apply, transform works w/ n that return series, but the result must be the same size as the input
+ 
+# ex: we can multiply each group by 2 using a helper fn
+
+def times_two(group):
+    return group * 2
+
+g.transform(times_two)
+
+# ex: a more complicated example, we can compute the ranks in desc for each group
+
+def get_ranks(group):
+    return group.rank(ascending=False)
+
+g.transform(get_ranks)
+
+# ex: consider a group transform fn composed from simple aggregations:
+
+def normalize(x):
+    return (x - x.mean()) / x.std()
+
+# we get equivalent results in this case using either transform or apply:
+
+g.transform(normalize)
+
+g.apply(normalize)
+
+# ex: use built-in fn like mean or sum
+
+g.transform('mean')
+
+normalized = (df['value'] - g.transform('mean')) / g.transform('std')
+
+normalized
+
+# 10.5 Pivot Tables and Cross-Tabulation
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
