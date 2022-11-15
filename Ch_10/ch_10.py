@@ -624,3 +624,35 @@ normalized
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: spose you wanted to compute a table of group means (default pt aggregation type) arranged by day & smoker on the rows
+
+tips.head()
+
+tips.pivot_table(index=["day", "smoker"])
+
+# now spose we want to take the avg of only tip_pct & size, & additionally
+# group by time. we will put smoker in the table cols & time, day in table rows
+
+tips.pivot_table(index=["time", "day"], columns="smoker",
+                values=["tip_pct", "size"])
+
+# partial totals are included by passing margins=True. allows all row, col labels
+
+tips.pivot_table(index=["time", "day"], columns="smoker",
+                values=["tip_pct", "size"], margins=True)
+
+# count excludes null values
+# len won't exclude null values
+
+tips.pivot_table(index=["time", "smoker"], columns="day",
+                values="tip_pct", aggfunc=len, margins=True)
+
+# pass a fill_value
+
+tips.pivot_table(index=["time", "size", "smoker"], columns="day",
+                values="tip_pct", fill_value=0)
+
+# Cross-Tabulations: Crosstab
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
