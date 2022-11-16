@@ -656,3 +656,39 @@ tips.pivot_table(index=["time", "size", "smoker"], columns="day",
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# crosstab is a pivot table that computes group frequencies
+
+# ex:
+
+from io import StringIO
+
+data = """Sample Nationality Handedness
+1 USA Right
+2 JPN Left
+3 USA Right
+4 JPN Right
+5 JPN Left
+6 JPN Right
+7 USA Right
+8 USA Left
+9 JPN Right
+10 USA Right
+"""
+
+data = pd.read_table(StringIO(data), sep="\s+")
+
+data    # this is beautiful
+
+# we might want to summarize this data by nationality and handedness
+# pivot_table could do this, but pandas.crosstab is more convenient
+
+# ex:
+
+pd.crosstab(data["Nationality"], data["Handedness"], margins=True)
+
+# ex: tips data
+
+pd.crosstab([tips["time"], tips["day"]], tips["smoker"], margins=True)
+
+# Mastering pandas’s data grouping tools can help with data cleaning and modeling or statistical analysis work.
+
