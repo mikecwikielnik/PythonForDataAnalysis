@@ -167,3 +167,32 @@ long_df.loc["2001-05"]
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: mult data obs falling on a particular timestamp
+
+dates = pd.DatetimeIndex(["2000-01-01", "2000-01-02", "2000-01-02",
+                        "2000-01-02", "2000-01-03"])
+
+dup_ts = pd.Series(np.arange(5), index=dates)
+
+dup_ts
+
+# we can tell that the index is not unique by checking its is_unique property
+
+dup_ts.index.is_unique
+
+dup_ts["2000-01-03"]    # not duplicated
+
+dup_ts["2000-01-02"]    # duplicated
+
+# spose you wanted to agg the data having nonunique ts. use groupby and pass level=0
+
+grouped = dup_ts.groupby(level=0)
+
+grouped.mean()
+
+grouped.count()
+
+# 11.3 Date Ranges, Frequencies, and Shifting
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
