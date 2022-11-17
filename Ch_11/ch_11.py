@@ -196,3 +196,15 @@ grouped.count()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: convert the sample time series to fixed daily freq by calling resample:
+
+ts
+
+resampler = ts.resample("D")    # "D" is daily freq
+
+resampler
+
+# Generating Date Ranges
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
