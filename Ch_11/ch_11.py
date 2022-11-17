@@ -88,3 +88,82 @@ pd.isna(idx)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+dates = [datetime(2011, 1, 2), datetime(2011, 1, 5),
+        datetime(2011, 1, 7), datetime(2011, 1, 8),
+        datetime(2011, 1, 10), datetime(2011, 1, 12)]
+
+ts = pd.Series(np.random.standard_normal(6), index=dates)
+
+ts
+
+# under the hood, these datetime objs have been put in a DatetimeIndex:
+
+ts.index
+
+# like other series, arithmetic automatically aligns the dates
+
+ts + ts[::2]    # ts[::2] selects every second element in ts
+
+# A pandas.Timestamp can be substituted most places where you would use a datetime object.
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# Indexing, Selection, Subsetting
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# time series behaves like any other series when you are indexing and selecting data based on the label
+
+stamp = ts.index[2]
+
+ts[stamp]   
+
+# as a convenience, you can pass a string that is interpretable as a date:
+
+ts["2011-01-10"]
+
+# ex: 
+
+longer_ts = pd.Series(np.random.standard_normal(1000),
+                    index=pd.date_range("2000-01-01", periods=1000))
+
+longer_ts
+
+longer_ts["2001"]
+
+# here, the str "2001" is interpreted as a year and selects that time period
+# this also works if you specify the month
+
+longer_ts["2001-05"]    # a nice way to parse by year, month
+
+# slicing w/ datetime obj works as well:
+
+ts[datetime(2011, 1, 7):]
+
+ts[datetime(2011, 1, 7):datetime(2011, 1, 10)]
+
+# ex: performing a range query
+
+ts
+
+ts["2011-01-06":"2011-01-11"]
+
+# ex: you can also truncate. it slices a series between two dates:
+
+ts.truncate(after="2011-01-09")
+
+# it holds up for df too, indexing on its rows:
+
+dates = pd.date_range("2001-01-01", periods=100, freq="W-WED")
+
+long_df = pd.DataFrame(np.random.standard_normal((100, 4)),
+                        index=dates,
+                        columns=["colorado", "texas",
+                                "new york", "ohio"])
+
+long_df.loc["2001-05"]
+
+# Time Series with Duplicate Indices
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
