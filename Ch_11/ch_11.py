@@ -48,3 +48,43 @@ start -2 * timedelta(12)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: format datetime obj as strings using str or the strftime method
+
+stamp = datetime(2011, 1, 3)
+
+str(stamp)  
+
+stamp.strftime("%Y-%m-%d")
+
+# you can use many of the same format codes to convert strings to date using datetime.strptime (sometimes %F can't be used)
+
+value = "2011-01-03"
+
+datetime.strptime(value, "%Y-%m-%d")
+
+datestrs = ["7/6/2011", "8/6/2011"]
+
+[datetime.strptime(x, "%m/%d/%Y") for x in datestrs]
+
+# datetime.strptime is one way to parse a date with a known format
+
+# ex: pd.to_datetime method parses many different kinds of date representations
+
+datestrs = ["2011-07-06 12:00:00", "2011-08-06 00:00:00"]
+
+pd.to_datetime(datestrs)
+
+# also, it handles values that should be considered missing(None, empty string, etc):
+
+idx = pd.to_datetime(datestrs + [None])
+
+idx
+
+idx[2]
+
+pd.isna(idx)
+
+# 11.2 Time Series Basics
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
