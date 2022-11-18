@@ -278,3 +278,40 @@ list(monthly_dates)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# shift method
+
+ts = pd.Series(np.random_standard_normal(4),
+                index=pd.date_range("2000-01-01", periods=4, freq="M"))
+
+ts
+
+ts.shift(2)     # the items shifted down a "cell" like in excel
+
+ts.shift(-2)    # same, except up
+
+# A common use of shift is computing consecutive percent changes 
+
+# in a time series or multiple time series as DataFrame columns. 
+
+# This is expressed as: 
+
+# ts / ts.shift(1) - 1
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex:
+
+ts.shift(2, freq="M")
+
+# other freq can be passed too, giving flexibility
+
+ts.shift(3, freq="D")
+
+ts.shift(1, freq="90T")     # T = minutes
+
+# Shifting dates with offsets
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+
+
