@@ -236,3 +236,35 @@ pd.date_range("1989-10-11 6:11:00", periods=5, normalize=True)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# base freq is M for monthly or H for hourly
+
+# ex: the hour class
+
+from pandas.tseries.offsets import Hour, Minute
+
+hour = Hour()
+
+hour
+
+# you can define a multiple of an offset by passing an int
+
+four_hours = Hour(4)
+
+four_hours
+
+# instead use 4H
+
+pd.date_range("2000-01-01", "2000-01-03 23:59", freq="4H")
+
+# you can combined these offsets by addition
+
+Hour(2) + Minute(30)
+
+# otherwise, you can pass freq str like 130min
+
+pd.date_range("2000-01-01", periods=10, freq="130min")
+
+# Week of month dates
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
