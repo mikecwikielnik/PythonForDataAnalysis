@@ -208,3 +208,31 @@ resampler
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# pandas.date_range is responsible for generating a DatetimeIndex w/ indicated length according to some freq
+
+index = pd.date_range("2012-04-01", "2012-06-01")
+
+index
+
+# ex: if you only pass a start or end date, you must enter a # of periods to generate. very cool! 
+
+pd.date_range(start="2012-04-01", periods=20)
+
+pd.date_range(end="1989-10-11", periods=20)
+
+# ex: business days only
+
+pd.date_range("2000-01-01", "2000-12-01", freq="BM")
+
+# pandas.date_range by default perserves the time
+
+pd.date_range("1989-10-11 6:11:00", periods=5)
+
+# to get rid of the time, you want to *normalize* to midnight
+
+pd.date_range("1989-10-11 6:11:00", periods=5, normalize=True)
+
+# Frequencies and Date Offsets
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
