@@ -354,3 +354,17 @@ ts.resample("M").mean()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+import pytz
+
+pytz.common_timezones[-5:]
+
+# to get a tz obj from pytz, use pytz.timezone
+
+tz = pytz.timezone("America/New_York")
+
+tz
+
+# Time Zone Localization and Conversion
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
