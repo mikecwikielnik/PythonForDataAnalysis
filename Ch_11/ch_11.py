@@ -313,5 +313,44 @@ ts.shift(1, freq="90T")     # T = minutes
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# pandas date offsets can be used with datetime or Timestamp obj
 
+from pandas.tseries.offsets import Day, MonthEnd
+
+now = datetime(2011, 11, 17)
+
+now + 3 * Day()
+
+# ex: 
+
+now + MonthEnd()
+
+now + MonthEnd(1)   # same as MonthEnd()
+
+now + MonthEnd(2)
+
+# ex: rollforward // rollback methods
+
+offset = MonthEnd()
+
+offset.rollforward(now)
+
+offset.rollback(now)
+
+# ex: date offsets & groupby
+
+ts = pd.Series(np.random.standard_normal(20),
+                index=pd.date_range("2000-01-15", periods=20, freq="4D"))   # 20 4-day periods
+
+ts
+
+ts.groupby(MonthEnd().rollforward).mean()
+
+# resample does this easier, and faster
+
+ts.resample("M").mean()
+
+# 11.4 Time Zone Handling
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
