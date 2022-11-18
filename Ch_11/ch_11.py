@@ -368,3 +368,48 @@ tz
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: time series in pandas are tz naive. consider:
+
+dates = pd.date_range("2012-03-09 09:30", periods=6)
+
+ts = pd.Series(np.random.standard_normal(len(dates)), index=dates)
+
+ts
+
+print(ts.index.tz)  # None
+
+# date ranges can be generated w/ a tz set:
+
+pd.date_range("2012-03-09 09:30", periods=10, tz="UTC")
+
+# ex: conversion from naive to localized (observed in some tz) is done by tz_localize method
+
+ts
+
+ts_utc = ts.tz_localize("UTC")
+
+ts_utc
+
+ts_utc.index    
+
+# once a time series has been localized to a particular tz, it can be converted to another tz w/
+# tz_convert
+
+ts_utc.tz_convert("America/New_York")
+
+# how to localize to us eastern and convert to, utc or berlin
+
+ts_eastern = ts.tz_localize("America/New_York")
+
+ts_eastern.tz_convert("UTC")
+
+ts_eastern.tz_convert("Europe/Berlin")
+
+# ex: tz_localize and tz_convert are also instance methods on DatetimeIndex
+
+ts.index.tz_localize("Asia/Shanghai")
+
+# Operations with Time Zone-Aware Timestamp Objects
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
