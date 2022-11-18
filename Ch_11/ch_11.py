@@ -268,3 +268,13 @@ pd.date_range("2000-01-01", periods=10, freq="130min")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# one useful freq is "week of month", WOM. This allows you to get things like third Friday of each mo
+
+monthly_dates = pd.date_range("2012-01-01", "2012-09-01", freq="WOM-3FRI")
+
+list(monthly_dates)
+
+# Shifting (Leading and Lagging) Data
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
