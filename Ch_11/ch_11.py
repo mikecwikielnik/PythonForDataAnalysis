@@ -447,3 +447,58 @@ stamp + 2 * Hour()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# if two time series w/ diff tz are combined, the result will be utc
+
+# ex: straight-forward operation 
+
+dates = pd.date_range("2012-03-07 09:30", periods=10, freq="B")
+
+ts = pd.Series(np.random.standard_normal(len(dates)), index=dates)
+
+ts
+
+ts1 = ts[:7].tz_localize("Europe/London")
+
+ts2 = ts1[2:].tz_convert("Europe/Moscow")
+
+result = ts1 + ts2
+
+result.index
+
+# 11.5 Periods and Period Arithmetic
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# periods are time spans like days, months, quarters or years.
+
+p = pd.Period("2011", freq="A-DEC")
+
+p   # represents 1/1/2011 - 12/31/2011
+
+# ex: effect of shifting their frequency
+
+p + 5
+
+p - 2
+
+# ex: period_range method
+
+periods = pd.period_range("2000-01-01", "2000-06-30", freq="M")
+
+periods
+
+# ex: PeriodIndex class stores a seq of periods and serves as an axis index
+
+pd.Series(np.random.standard_normal(6), index=periods)
+
+# ex: array of str, use PeriodIndex class, where all of its values are periods
+
+values = ["2001Q3", "2002Q2", "2003Q1"]
+
+index = pd.PeriodIndex(values, freq="Q-DEC")
+
+index
+
+# Period Frequency Conversion
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
