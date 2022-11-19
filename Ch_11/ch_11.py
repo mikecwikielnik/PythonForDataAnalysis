@@ -413,3 +413,37 @@ ts.index.tz_localize("Asia/Shanghai")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: timestamp obj can be localized from naive to tz-aware & converted from one tz to another
+
+stamp = pd.Timestamp("2011-03-12 04:00")
+
+stamp_utc = stamp.tz_localize("utc")
+
+stamp_utc.tz_convert("America/New_York")
+
+# you can pass a tz when creating the Timestamp
+
+stamp_moscow = pd.Timestamp("2011-03-12 04:00", tz="Europe/Moscow")
+
+stamp_moscow
+
+# ex: 30 min before transiting to Daylight Savings Time
+
+stamp = pd.Timestamp("2012-03-11 01:30", tz="US/Eastern")
+
+stamp
+
+stamp + Hour()
+
+# then 90 minutes before transitioning out of Daylight Savings Time
+
+stamp= pd.Timestamp("2012-11-04 00:30", tz="US/Eastern")
+
+stamp
+
+stamp + 2 * Hour()
+
+# Operations Between Different Time Zones
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
