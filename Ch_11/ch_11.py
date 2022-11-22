@@ -661,3 +661,45 @@ ts.resample("M", kind="period").mean()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# things to think about when using resample to downsample data:
+
+# 1) which side of each interval is closed?
+# 2) how to label each aggregated bin, either w/ the start of the interval or the end
+
+# to illustrate, lets look at some one-minute freq data
+
+dates = pd.date_range("2000-01-01", periods=12, freq="T")
+
+ts = pd.Series(np.arange(len(dates)), index=dates)
+
+ts
+
+# spose you wanted to aggregate this data into five-min chunks or bars by taking the sum of each group
+
+ts.resample("5min").sum()
+
+# simple inequalites
+# by default, the left bin edge is inclusive, so 00:00 value is included
+# but 00:05 value is excluded
+
+ts.resample("5min", closed="right").sum()
+
+# passing label="right", you can label them with the right bin edge
+
+ts.resample("5min", closed="right", label="right").sum()
+
+# ex: shifting the result index by some amount,
+# say subtracting 1s from the right edge to make it more clear which interval the ts refers to
+
+from pandas.tseries.frequencies import to_offset
+
+result = ts.resample("5min", closed="right", label="right").sum()
+
+result.index = result.index + to_offset("-1s")
+
+result
+
+# Open-high-low-close (OHLC) resampling
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
