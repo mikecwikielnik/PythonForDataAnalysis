@@ -703,3 +703,25 @@ result
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+"""
+In finance, a popular way to aggregate a time series is to compute four values for each bucket: 
+
+
+*the first (open), last (close), maximum (high), and minimal (low) values.*
+
+
+By using the ohlc aggregate function, you will obtain a DataFrame having columns containing these four aggregates, 
+
+which are efficiently computed in a single function call:
+
+McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+"""
+
+ts = pd.Series(np.random.permutation(np.arange(len(dates))), index=dates)
+
+ts.resample("5min").ohlc()
+
+# Upsampling and Interpolation
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
