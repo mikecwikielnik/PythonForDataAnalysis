@@ -581,3 +581,37 @@ ts
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: series, df indexed by timestamps can be converted to periods w/ the to_period method
+
+dates = pd.date_range("2000-01-01", periods=3, freq="M")
+
+ts = pd.Series(np.random.standard_normal(3), index=dates)
+
+ts
+
+pts = ts.to_period()
+
+pts
+
+# ex: specify any supported frequency
+
+dates = pd.date_range("2000-01-29", periods=6)
+
+ts2 = pd.Series(np.random.standard_normal(6), index=dates)
+
+ts2
+
+ts2.to_period("M")
+
+# ex: convert back to timestamps, use the to_timestamp method, which returns a DatetimeIndex
+
+pts = ts2.to_period()
+
+pts
+
+pts.to_timestamp(how="end")
+
+# Creating a PeriodIndex from Arrays
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
