@@ -640,3 +640,24 @@ data["infl"]
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# higher to lower = downsampling
+# lower to higher = upsampling 
+# not all resampling falls into either of these categoris
+
+# pandas objects are equipped w/ a resample method, which is the workhorse fun for all frequency conversion
+# resample is like groupby. you call resample to group the data, then call an aggregation fn
+
+dates = pd.date_range("2000-01-01", periods=100)
+
+ts = pd.Series(np.random.standard_normal(len(dates)), index=dates)
+
+ts
+
+ts.resample("M").mean()
+
+ts.resample("M", kind="period").mean()
+
+# Downsampling
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
