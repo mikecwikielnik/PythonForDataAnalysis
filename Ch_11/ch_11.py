@@ -502,3 +502,44 @@ index
 # Period Frequency Conversion
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# ex: annual period -> monthly period either at the start or end of the year
+
+p = pd.Period("2011", freq="A-DEC")
+
+p
+
+p.asfreq("M", how="start")
+
+p.asfreq("M", how="end")
+
+p.asfreq("M")
+
+# ex: fiscal year ending on a month other than december, the corresponding monthly subperiods are different
+
+p = pd.Period("2011", freq="A-JUN")
+
+p
+
+p.asfreq("M", how="start")
+
+p.asfreq("M", how="end")
+
+# ex:
+
+periods = pd.period_range("2006", "2009", freq="A-DEC")
+
+ts = pd.Series(np.random.standard_normal(len(periods)), index=periods)
+
+ts
+
+ts.asfreq("M", how="start")
+
+# ex: "B" frequency indicates that we want the end of the period
+
+ts.asfreq("B", how="end")
+
+# Quarterly Period Frequencies
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
