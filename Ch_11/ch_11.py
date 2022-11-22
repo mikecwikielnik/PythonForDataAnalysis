@@ -543,3 +543,41 @@ ts.asfreq("B", how="end")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+p = pd.Period("2012Q4", freq="Q-JAN")
+
+p
+
+# ex: where the fiscal year is not a calendar year
+
+p.asfreq("D", how="start")
+
+p.asfreq("D", how="end")
+
+# ex: get a timestamp on the 2nd-to-last business day of the quarter
+
+p4pm = (p.asfreq("B", how="end") - 1).asfreq("T", how="start") + 16 * 6
+
+p4pm
+
+p4pm.to_timestamp()
+
+# to_timestamp() method returns the Timestamp at the start of the period by default
+
+# ex: generate quarterly ranges using pandas.period_range. The arithmetic is identical, too
+
+periods = pd.period_range("2011Q3", "2012Q4", freq="Q-JAN")
+
+ts = pd.Series(np.arange(len(periods)), index=periods)
+
+ts
+
+new_periods = (periods.asfreq("B", "end") - 1).asfreq("H", "start") + 1
+
+ts.index = new_periods.to_timestamp()
+
+ts
+
+# Converting Timestamps to Periods (and Back)
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
