@@ -615,3 +615,28 @@ pts.to_timestamp(how="end")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: fixed freq datasets are sometimes stored w/ time span information spread across multiple columns
+# year & qtr are in different columns
+
+data = pd.read_csv("../book files/examples/macrodata.csv")
+
+data.head(5)
+
+data["year"]
+
+data["quarter"]
+
+# passing these arrays to PeriodIndex w/ a freq, you can combine them to form an index for the df
+
+index = pd.PeriodIndex(year=data["year"], quarter=data["quarter"], freq="Q-DEC")
+
+index
+
+data.index = index
+
+data["infl"]
+
+# 11.6 Resampling and Frequency Conversion
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
