@@ -725,3 +725,31 @@ ts.resample("5min").ohlc()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: unsampling is converting from a lower freq to a higher freq, where no aggregation is needed. 
+# let's consider a df w/ some weekly data
+
+frame = pd.DataFrame(np.random.standard_normal((2, 4)),
+                        index=pd.date_range("2000-01-01", periods=2,
+                                        freq="w-WED"),
+                        columns=["colorado", "texas", "new york", "ohio"])
+
+frame
+
+# ex:
+
+df_daily = frame.resample("D").asfreq()
+
+df_daily
+
+# fillna, reindex methods are available for resampling
+
+frame.resample("D").ffill()
+
+# you can fill a certain number of periods 
+
+frame.resample("D").ffill(limit=2)
+
+# Resampling with Periods
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
