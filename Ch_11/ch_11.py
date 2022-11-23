@@ -786,3 +786,42 @@ annual_frame.resample("Q-MAR").ffill()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+N = 15
+
+times = pd.date_range("2017-05-20 00:00", freq="1min", periods=N)
+
+df = pd.DataFrame({"time": times,
+                   "value": np.arange(N)})      # this is what is important. 
+
+df
+
+# here, we can index by "time" and then resample
+
+df.set_index("time").resample("5min").count()
+
+# spose that a df contains mult time series, marked by an additional group key column
+
+df2 = pd.DataFrame({"time": times.repeat(3),
+                    "key": np.tile(["a", "b", "c"], N),
+                    "value": np.arange(N * 3)})
+
+df2.head(7)
+
+# resample for each value of "key", we introduce pandas.Grouper obj
+
+time_key = pd.Grouper(freq="5min")
+
+# then set the time index, group by "key" and time_key, and aggregate
+
+resampled = (df2.set_index("time")
+             .groupby(["key", time_key])
+             .sum())
+
+resampled
+
+resampled.reset_index()
+
+# 11.7 Moving Window Functions
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
