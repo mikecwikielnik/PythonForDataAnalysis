@@ -753,3 +753,36 @@ frame.resample("D").ffill(limit=2)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# resampling data indexed by periods is similar to ts
+
+frame = pd.DataFrame(np.random.standard_normal((24, 4)),
+                        index=pd.period_range("1-2000", "12-2001",
+                                                freq="M"),
+                        columns=["Colorado", "Texas", "New York", "Ohio"])
+
+frame.head()
+
+annual_frame = frame.resample("A-DEC").mean()
+
+annual_frame
+
+# ex: convention arg defaults to "start" but can also be "end"
+
+# Q-DEC: Quarterly, year ending in December
+
+annual_frame.resample("Q-DEC").ffill()
+
+annual_frame.resample("Q-DEC", convention="end").asfreq()
+
+# downsampling, the target freq must be a subperiod of the source freq
+# upsampling, the target freq must be a superperiod of the source freq
+# this mainly affects quarterly, annual, and weekly freq
+
+# ex: time spans defined by Q-MAR only line up w/ A-MAR, A-JUN, A-SEP, and A-DEC
+
+annual_frame.resample("Q-MAR").ffill()
+
+# Grouped Time Resampling
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
