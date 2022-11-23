@@ -825,3 +825,52 @@ resampled.reset_index()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex:
+
+# load up some time series data and resample it to a business day freq
+
+close_px_all = pd.read_csv("../book files/examples/stock_px.csv", parse_dates=True, index_col=0)
+
+close_px = close_px_all[["AAPL", "MSFT", "XOM"]]
+
+close_px = close_px.resample("B").ffill()       # 250-day moving window avg of apple's stock
+
+# rolling operator, which behaves similarly to resample and groupby
+# rolling operator can be called on a Series or Df along w/ a window (expressed as a number of periods)
+
+close_px["AAPL"].plot()
+
+close_px["AAPL"].rolling(250).mean().plot()     # very important to remember
+
+# default require non-NA.
+
+# ex:
+
+from matplotlib import pyplot as plt    
+
+plt.figure()
+
+std250 = close_px["AAPL"].pct_change().rolling(250, min_periods=10).std()
+
+std250[5:12]
+
+std250.plot()   # very important graph
+
+# ex: compute an expanding window mean, use the expanding operator instead of rolling
+
+# expanding window mean on the std250 tseries looks like this
+
+expanding_mean = std250.expanding().mean()
+
+plt.style.use('grayscale')
+
+close_px.rolling(60).mean().plot(logy=True)     # another great graph
+
+# ex: compute a 20-day rolling mean
+
+close_px.rolling("20D").mean()
+
+# Exponentially Weighted Functions
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
