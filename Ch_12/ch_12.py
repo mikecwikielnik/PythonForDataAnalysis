@@ -131,3 +131,50 @@ coef    # this is very nice looking.
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+y, x = patsy.dmatrices('y ~ x0 + np.log(np.abs(x1) + 1)', data)
+
+x
+
+"""
+Some commonly used variable transformations include 
+
+a) standardizing (to mean 0 and variance 1)
+b) centering (subtracting the mean)
+
+patsy had built-in fn's for this purpose
+"""
+
+# ex:
+
+y, x = patsy.dmatrices('y ~ standardize(x0) + center(x1)', data)
+
+x
+
+"""
+when you are training your data to later score your models. 
+
+patsy.build_design_matrices fn can apply the transformations (statistics from the training data)
+to the scoring data. 
+"""
+
+# ex:
+
+new_data = pd.DataFrame({
+    'x0': [6, 7, 8, 9],
+    'x1': [3.1, -0.5, 0, 2.3],
+    'y': [1, 2, 3, 4]})
+
+new_x = patsy.build_design_matrices([x.design_info], new_data)
+
+new_x
+
+# when you want to add cols from a dataset by name, you must wrap them in the special I fn
+
+y, x = patsy.dmatrices('y ~ I(x0 + x1)', data)
+
+x
+
+# Categorical Data and Patsy
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
