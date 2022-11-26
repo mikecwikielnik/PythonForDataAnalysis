@@ -178,3 +178,45 @@ x
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# non-numeric terms in a patsy formula are converted to dummy variables by default
+
+data = pd.DataFrame({
+    'key1': ['a', 'a', 'b', 'b', 'a', 'b', 'a', 'b'],
+    'key2': [0, 1, 0, 1, 0, 1, 0, 0],
+    'v1': [1, 2, 3, 4, 5, 6, 7, 8],
+    'v2': [-1, 0, 2.5, -0.5, 4.0, -1.2, 0.2, -1.7]})
+
+y, x = patsy.dmatrices('v2 ~ key1', data)
+
+x
+
+# if you omit the intercept, then cols for each category value will be included in the model design matrix
+
+y, x = patsy.dmatrices('v2 ~ key1 + 0', data)
+
+x
+
+# ex: numeric columns can be interpreted as categorical w/ the C function
+
+y, x = patsy.dmatrices('v2 ~ C(key2)', data)
+
+x
+
+# ex: interaction terms of the form key1:key2, which can be used in analysis of variance (ANOVA) models
+
+data['key2'] = data['key2'].map({0: 'zero', 1: 'one'})
+
+data
+
+y, x = patsy.dmatrices('v2 ~ key1 + key2', data)
+
+x
+
+y, x = patsy.dmatrices('v2 ~ key1 + key2 + key1:key2', data)
+
+x
+
+# 12.3 Introduction to statsmodels
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
