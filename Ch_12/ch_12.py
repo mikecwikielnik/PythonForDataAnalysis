@@ -78,3 +78,56 @@ data_with_dummies
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+data = pd.DataFrame({
+    'x0': [1, 2, 3, 4, 5],
+    'x1': [0.01, -0.01, 0.25, -4.1, 0.],
+    'y': [-1.5, 0., 3.6, 1.3, -2.]})
+
+data
+
+import patsy
+
+y, x = patsy.dmatrices('y ~ x0 + x1', data)
+
+# now we have:
+
+y
+
+x   # both x,y yield interesting results
+
+# patsy DesignMatrix instances are numpy ndarrays with additional metadata
+
+np.asarray(y)
+
+np.asarray(x)
+
+"""
+in line 96: x gives an intercept term. 
+
+This is a convention for LINEAR MODELS like ORDINARY LEAST SQUARES (OLS) REGRESSION.
+
+You can supress this term by adding the term + 0 to the model
+"""
+
+patsy.dmatrices('y ~ x0 + x1 + 0', data)[1]
+
+# patsy objects can be passed directly into algos like 
+# numpy.linalg.lstsq !! 
+'''
+numpy.linalg.lstsq performs OLS regression. 
+'''
+
+coef, resid, _, _ = np.linalg.lstsq(x, y)
+
+# ex: you can reattach the model col names to the fitted coefs to obtain a Series
+
+coef
+
+coef = pd.Series(coef.squeeze(), index=x.design_info.column_names)
+
+coef    # this is very nice looking. 
+
+# Data Transformations in Patsy Formulas
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
