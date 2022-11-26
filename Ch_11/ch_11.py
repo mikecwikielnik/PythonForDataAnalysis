@@ -874,3 +874,25 @@ close_px.rolling("20D").mean()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: 30 day moving avg of Apple stock price w/ exponentially weighted (EW) moving average w/ span=60
+
+aapl_px = close_px["AAPL"]["2006":"2007"]
+
+ma30 = aapl_px.rolling(30, min_periods=20).mean()
+
+ewma30 = aapl_px.ewm(span=30).mean()
+
+aapl_px.plot(style="k-", label="Price")
+
+ma30.plot(style="k--", label="Simple Moving Avg")
+
+ewma30.plot(style="k-", label="EW MA")
+
+plt.legend()
+
+plt.show()
+
+# Binary Moving Window Functions
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
