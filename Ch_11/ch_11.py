@@ -896,3 +896,33 @@ plt.show()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: look at a stocks correlation to a benchmark index like the s&p500
+
+# first, we need to compute the % change V of our time series of interest
+
+spx_px = close_px_all["SPX"]
+
+spx_rets = spx_px.pct_change()
+
+returns = close_px.pct_change()
+
+# after we call rolling (below), the corr aggregation fn cn then compute the rolling correlation w/ spx_rets
+
+corr = returns["AAPL"].rolling(125, min_periods=100).corr(spx_rets)
+
+corr.plot()
+
+# ex: spose you wanted to compute the rolliing corr of the s&p 50 index for many stocks at once
+
+# you could write a loop computing this for each stock like we did for Apple above
+# but if each stock is a col in a single df, we can compute all of the rolling correlations
+# in one shot by calling rolling on the df and passing the spx_rets Series
+
+corr = returns.rolling(125, min_periods=100).corr(spx_rets)
+
+corr.plot()
+
+# User-Defined Moving Window Functions
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
