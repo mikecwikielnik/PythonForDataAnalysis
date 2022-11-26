@@ -926,3 +926,14 @@ corr.plot()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# we might be interested in the percentile rank of a particular value over a sample
+# scipy.stats.percentileofscore fn does just this
+
+from scipy.stats import percentileofscore
+
+def score_at_2percent(x):
+        return percentileofscore(x, 0.02)
+
+result = returns["AAPL"].rolling(250).apply(score_at_2percent)
+
+result.plot()
