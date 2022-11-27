@@ -317,3 +317,33 @@ results.predict(data[:5])
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: lets simulate some time series data w/ an autoregressive structure and noise
+
+init_x = 4
+
+values = [init_x, init_x]
+N = 1000
+
+b0 = 0.8
+b1 = -0.4
+noise = dnorm(0, 0.1, N)
+for i in range(N):
+    new_x = values[-1] * b0 + values[-2] * b1 + noise[i]
+    values.append(new_x)
+
+# ex: 
+
+from statsmodels.tsa.ar_model import AutoReg
+
+MAXLAGS = 5
+
+model = AutoReg(values, MAXLAGS)
+
+results = model.fit()
+
+results.params
+
+# 12.4 Introduction to scikit-learn
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
