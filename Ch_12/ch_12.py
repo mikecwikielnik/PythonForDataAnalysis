@@ -347,3 +347,83 @@ results.params
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: titanic dataset
+# we load the training and test datasets using pandas
+
+train = pd.read_csv('../book files/datasets/titanic/train.csv')
+
+test = pd.read_csv('../book files/datasets/titanic/test.csv')
+
+train.head(4)
+
+# statsmodels and scikit-learn cant be fed missing data. 
+# we ned to look at the cols to if there is any
+
+train.isna().sum()
+
+test.isna().sum()
+
+# age could be a predictor but it has missing data. 
+# there is much we can do with data imputation but we will use the median of the training data to fill the nulls in both tables
+
+impute_value = train['Age'].median()
+
+train['Age'] = train['Age'].fillna(impute_value)
+
+test['Age'] = test['Age'].fillna(impute_value)
+
+# we need to specify our models. Add a col IsFemale as encoded version of the 'Sex' col
+
+train['IsFemale'] = (train['Sex'] == 'female').astype(int)
+
+test['IsFemale'] = (test['Sex'] == 'female').astype(int)
+
+# then we decide on some model variables and create Numpy arrays
+
+predictors = ['Pclass', 'IsFemale', 'Age']
+
+X_train = train[predictors].to_numpy()
+
+X_test = test[predictors].to_numpy()
+
+y_train = train['Survived'].to_numpy()
+
+X_train[:5]
+
+y_train
+
+# we use the LogisticRegression model from scikit-learn and create a model instance
+
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression()
+
+# we can fit this model to the training data using the model's fit method
+
+model.fit(X_train, y_train)     # the output is: LogisticRegression()
+
+# we can now form predictions for the test dataset using model.predict():
+
+y_predict = model.predict(X_test)
+
+y_predict[:10]
+
+# ex: LogisticRegressionCV 
+
+from sklearn.linear_model import LogisticRegressionCV
+
+model_cv = LogisticRegressionCV(Cs=10)
+
+model_cv.fit(X_train, y_train)
+
+# ex: cross-validate our model w/ 4 nonoverlapping splits of the training data
+# cross-validation by hand, use the cross_val_score helper fn, which handles the data splitting process
+
+from sklearn.model_selection import cross_val_score
+
+model = LogisticRegression(C=10)
+
+scores = cross_val_score(model, X_train, y_train, cv=4)
+
+scores
+
