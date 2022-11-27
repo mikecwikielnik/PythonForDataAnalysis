@@ -220,3 +220,100 @@ x
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+"""
+linear models
+generalized linear models
+robust linear models
+linear mixed effects models
+analysis of variance (anova) methods
+"""
+
+# Estimating Linear Models
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# several linear regression models exist in statsmodels
+# from more basic (ordinary least squares) to more complex (iteratively reweighted least squares)
+
+# linear models in statsmodels come in two different flavors:
+# array based and formula based
+# they are accessed via:
+
+import statsmodels.api as sm
+import statsmodels.formula.api as smf   
+
+# ex: generate a linear model from some random data
+
+rng = np.random.default_rng(seed=12345)
+
+def dnorm(mean, variance, size=1):
+    if isinstance(size, int):
+        size = size,
+    return mean + np.sqrt(variance) * rng.standard_normal(*size)
+
+N = 100
+X = np.c_[dnorm(0, 0.4, size=N),
+          dnorm(0, 0.6, size=N),
+          dnorm(0, 0.2, size=N)]
+eps = dnorm(0, 0.1, size=N)
+beta = [0.1, 0.3, 0.5]
+
+y = np.dot(X, beta) + eps
+
+# dnorm is a helper fn for generating normally dist data w/ particular mean and variance
+
+# so now we have:
+
+X[:5]
+
+y[:5]
+
+# linear models need an intercept term. 
+# sm.add_constant fn can add an intercept col to an existing matrix
+
+X_model = sm.add_constant(X)
+
+X_model[:5]
+
+"""
+sm.OLS class can fit an ordinary least squares linear regression
+"""
+
+model = sm.OLS(y, X)
+
+# the model's fit method returns a results object containing
+# the model parameters and other diagnostics
+
+results = model.fit()
+
+results.params
+
+# the summary method on results can print a model detailing diagnostic output
+
+print(results.summary())    # this is EXACTLY what you need. big W here.
+
+# here, the param names are generic x1, x2, etc. 
+# spose instead that all of the model params are in a df
+
+data = pd.DataFrame(X, columns=['col0', 'col1', 'col2'])
+
+data['y'] = y
+
+data[:5]
+
+# now we can use the statsmodels formula api and patasy formula strings
+
+results = smf.ols('y ~ col0  + col1 + col2', data=data).fit()
+
+results.params  
+
+results.tvalues 
+
+# ex: given new data (out of sample), you can compute predicted values given the estimated model param
+
+results.predict(data[:5])
+
+# Estimating Time Series Processes
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
