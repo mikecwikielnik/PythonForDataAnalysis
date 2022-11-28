@@ -235,3 +235,69 @@ results2 = count_subset["total"] / g["total"].transform("sum")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+unames = ["user_id", "gender", "age", "occupation", "zip"]
+users = pd.read_table("../book files/datasets/movielens/users.dat", sep="::",
+                        header=None, names=unames, engine="python")
+
+rnames = ["user_id", "movie_id", "rating", "timestamp"]
+ratings = pd.read_table("../book files/datasets/movielens/ratings.dat", sep="::",
+                        header=None, names=rnames, engine="python")
+
+mnames = ["movies_id", "title", "genres"]
+movies = pd.read_table("../book files/datasets/movielens/movies.dat", sep="::",
+                        header=None, names=mnames, engine="python")
+
+# you can verify that everything succeeded by looking at each df
+
+users.head(5)
+
+ratings.head(5)
+
+movies.head(5)
+
+ratings
+
+# ex: table merge w/ pandas's merge fn
+
+data = ratings.merge(users, left_on="user_id", right_on="user_id")  # this is good
+
+data.head()
+
+data = data.merge(movies, left_on="movie_id", right_on="movies_id")
+
+data.head()     # this should work for the most part
+
+data.iloc[0]
+
+# ex: to get mean movie rating by gender, use pivot_table
+
+mean_ratings = data.pivot_table("rating", index="title", columns="gender", aggfunc="mean")
+
+mean_ratings.head(5)    # movie titles as row labels (the "index") and gender as column labels
+
+# ex: filter down to movies that received at least 250 raings
+
+ratings_by_title = data.groupby("title").size()
+
+ratings_by_title.head()
+
+active_titles = ratings_by_title.index[ratings_by_title >= 250]
+
+active_titles   # this whole example is perfect
+
+# ex: the index of titles (>250) can the be used to select rows from mean_ratings ussing .loc:
+
+mean_ratings = mean_ratings.loc[active_titles]
+
+mean_ratings
+
+# ex: to see the top films among female viewers, sort by the female col in desc
+
+top_female_ratings = mean_ratings.sort_values("F", ascending=False)
+
+top_female_ratings
+
+# Measuring Rating Disagreement
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
