@@ -301,3 +301,73 @@ top_female_ratings
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# ex: spose you wanted to find the movies that are the most divisive
+# between male and viewers. One way is to add a column to mean_ratings
+# containing the difference in means, then sort
+
+mean_ratings["diff"] = mean_ratings["M"] - mean_ratings["F"]
+
+# sort by diff yields the movies w/ the greatest rating diff 
+# so we see the ones preferred by women
+
+sorted_by_diff = mean_ratings.sort_values("diff")
+
+sorted_by_diff.head()
+
+# reversing the order of rows, we get the movies preferred by men
+# that women didn't rate as highly
+
+sorted_by_diff[::-1].head()
+
+# ex: spose instead you wanted the movies that elicited the most disagreement among viewers,
+# independent of gender id. disagreement can be measured by the variance or standard deviation of the ratings.
+# first, we need to compute the rating standard deviation by title and then filter down to the active titles. 
+
+rating_std_by_title = data.groupby("title")["rating"].std()
+
+rating_std_by_title = rating_std_by_title.loc[active_titles]
+
+rating_std_by_title.head()
+
+# then sort in desc order
+
+rating_std_by_title.sort_values(ascending=False)[:10]
+
+# ex: movies can belong to multiple genres. to help us group by genre
+# use the explode method on df. first, we split the genres string into a list of genres
+# using str.split method on the series
+
+movies["genres"].head()
+
+movies["genres"].head().str.split("|")  # this is awesome
+
+movies["genre"] = movies.pop("genres").str.split("|")
+
+movies.head()
+
+# now calling movies.explode("genre") yields an unique row per unique genre per movie
+
+movies_exploded = movies.explode("genre")
+
+movies_exploded[:10]
+
+# now merge all 3 tables together and group by name
+
+movies_exploded.head()
+
+ratings_with_genre = pd.merge(movies_exploded, ratings, left_on="movies_id", right_on="movie_id")
+
+ratings_with_genre = pd.merge(ratings_with_genre, users, left_on="user_id", right_on="user_id")
+
+ratings_with_genre.columns
+
+ratings_with_genre.iloc[0]
+
+genre_ratings = (ratings_with_genre.groupby(["genre", "age"])["rating"].mean().unstack("age"))
+
+genre_ratings[:10]
+
+# 13.3 US Baby Names 1880–2010
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
