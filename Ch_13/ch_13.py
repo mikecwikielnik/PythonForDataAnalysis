@@ -842,3 +842,50 @@ grouped.apply(get_top_amounts, "contbr_employer", n=10)
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# a useful way to analyze this data is to use the cut fn to 
+# discretize the contributor amounts into buckets by contribution size
+
+bins = np.array([0, 1, 10, 100, 1000, 10000, 100_000, 1_000_000, 10_000_000])
+
+labels = pd.cut(fec_mrbo["contb_receipt_amt"], bins)
+
+labels
+
+# group the data for obama and romney by name, bin label to get a histogram by donation size
+
+grouped = fec_mrbo.groupby(["cand_nm", labels])
+
+grouped.size().unstack(level=0)
+
+# ex: sum the contribution amounts and normalize w/in buckets to visualize the percentage
+# of total donations of each size by candidate
+
+bucket_sums = grouped["contb_receipt_amt"].sum().unstack(level=0)
+
+normed_sums = bucket_sums.div(bucket_sums.sum(axis="columns"), axis="index")
+
+normed_sums
+
+normed_sums[:-2].plot(kind="barh")
+
+# Donation Statistics by State
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
+# start by agg the data by candidate, state
+
+grouped = fec_mrbo.groupby(["cand_nm", "contbr_st"])
+
+totals = grouped["contb_receipt_amt"].sum().unstack(level=0).fillna(0)
+
+totals = totals[totals.sum(axis="columns") > 100000]
+
+totals.head(25)
+
+# if you divide each row by the total contribution amount, 
+# you get the relative percentage of total donations by state for each candidate
+
+percent = totals.div(totals.sum(axis="columns"), axis="index")
+
+percent.head(10)
+
