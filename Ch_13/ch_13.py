@@ -447,3 +447,37 @@ top1000.head()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# w/ the full dataset and the top 1000 in hand. let's analyze some trends.
+# first we ca split the top 1000 names into the boy and girl portions
+
+boys = top1000[top1000["sex"] == "M"]   # v interesting way to get a subset
+
+# take the top1000 and then look at the sex col then take M for boys, F for girls
+
+girls = top1000[top1000["sex"] == "F"]
+
+# form a pivot table of the total number of births by year and name
+
+total_births = top1000.pivot_table("births", index="year", columns="name", aggfunc=sum)
+
+total_births
+
+# dataframe's plot method will be useful here
+
+total_births.info()     # v cool to look at! df.info()
+
+subset = total_births[["John", "Harry", "Mary", "Marilyn"]]
+
+subset.plot(subplots=True, figsize=(12, 10), title="Number of births per year")
+
+# what is important with the above code is this: we really have three sets here. 
+# boys, girls, and the top 1000. total_births is a pivot table that takes all the names
+# in alphabetical order as columns, the index is the year! the number in the field is the
+# number of births. total_births[["John", "Harry", "Mary", "Marilyn"]] means calling these
+# fields in total_births pivot table. This means subset has these four names and the years
+# 1880 - 2021 as the index. 
+
+# Measuring the increase in naming diversity
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
