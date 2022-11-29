@@ -720,3 +720,61 @@ max_foods.loc["Amino Acids"]["food"]
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+fec = pd.read_csv("../book files/datasets/fec/P00000001-ALL.csv", low_memory=False)
+
+fec.info()
+
+# a sample record looks like this
+
+fec.iloc[123456]
+
+# get a list of all the unique political candidates using unique()
+
+unique_cands = fec["cand_nm"].unique()
+
+unique_cands
+
+unique_cands[2]
+
+parties = {"Bachmann, Michelle": "Republican",
+           "Cain, Herman": "Republican",
+           "Gingrich, Newt": "Republican",
+           "Huntsman, Jon": "Republican",
+           "Johnson, Gary Earl": "Republican",
+           "McCotter, Thaddeus G": "Republican",
+           "Obama, Barack": "Democrat",
+           "Paul, Ron": "Republican",
+           "Pawlenty, Timothy": "Republican",
+           "Perry, Rick": "Republican",
+           "Roemer, Charles E. 'Buddy' III": "Republican",
+           "Romney, Mitt": "Republican",
+           "Santorum, Rick": "Republican"}
+
+# now using this mapping and the map method on a series obj,
+# you can compute an array of parties from the names
+
+fec["cand_nm"][123456:123461]
+
+fec["cand_nm"][123456:123461].map(parties)  # interest
+
+# add it as a column
+fec["party"] = fec["cand_nm"].map(parties)
+
+fec["party"].value_counts()
+
+# include both contributions and refunds(neg contribution amt)
+
+(fec["contb_receipt_amt"] > 0).value_counts()
+
+# restrict to positive contributions
+
+fec = fec[fec["contb_receipt_amt"] > 0 ]
+
+# subset to just mitt romney, barack obama
+
+fec_mrbo = fec[fec["cand_nm"].isin(["Obama, Barack", "Romney, Mitt"])]
+
+# Donation Statistics by Occupation and Employer
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
