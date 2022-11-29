@@ -532,3 +532,54 @@ diversity.plot(title="Number of popular names in top 50%")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# lets aggregate all the births in the full dataset by year, sex, and final letter
+
+def get_last_letter(x):
+    return x[-1]
+
+last_letters = names["name"].map(get_last_letter)
+last_letters.name = "last_letter"
+
+table = names.pivot_table("births", index=last_letters, columns=["sex", "year"], aggfunc=sum)
+
+# select some years, print the first few rows
+
+subtable = table.reindex(columns=[1901, 1960, 2021], level="year")
+
+subtable.head()
+
+# now, normalize the table by total births to compute a new table containing the proportion
+# of total births for each sex ending in each letter
+
+subtable.sum()
+
+letter_prop = subtable / subtable.sum()
+
+letter_prop     # super interesting results
+
+# w/ letter proportions in hand, we can make bar plots for each sex, broken down by year
+
+import matplotlib.pyplot as plt
+
+fig, axes = plt.subplots(2, 1, figsize=(15, 8))
+letter_prop["M"].plot(kind="bar", rot=0, ax=axes[0], title="Male")
+letter_prop["F"].plot(kind="bar", rot=0, ax=axes[1], title="Female", legend=False)
+
+# here we can see n has had significant growth since 1960 for boys. 
+# Normalize again by year and select a subset of letters for the boy names, 
+# finally transposing to make each column a time series
+
+letter_prop = table / table.sum()
+
+dny_ts = letter_prop.loc[["d", "n", "y"], "M"].T
+
+dny_ts.head()
+
+# w/ this df time series, we can plot trends over time with the plot method! 
+
+dny_ts.plot()
+
+# Boy names that became girl names (and vice versa)
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
