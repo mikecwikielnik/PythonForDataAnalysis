@@ -613,3 +613,110 @@ table.plot(style={"M": "k-", "F":"k--"})
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# load the file w/ any json lib of your choosing. use built-in python json 
+
+import json
+
+db = json.load(open("../book files/datasets/usda_food/database.json"))
+
+len(db)
+
+# each entry is a dictionary containing all the data for a single food. 
+# "nutrients" field is a list of dictionaries, one for each nutrient
+
+db[0].keys()
+
+db[0]["nutrients"][0]
+
+nutrients = pd.DataFrame(db[0]["nutrients"])    # this line and line 629 are almost literally the same thing
+
+nutrients.head(7)
+
+# when converting a list of dict to a df, you can specify a list of fields to extract
+
+info_keys = ["description", "group", "id", "manufacturer"]
+
+info = pd.DataFrame(db, columns=info_keys)
+
+info.head()
+
+info.info()
+
+# manufacturer col is missing data
+
+# use value_counts() to see the distribution of food groups
+
+pd.value_counts(info["group"])[:10]
+
+# ex: analysis on all of the nutrient data. it is easiest to assemble the nutrients for each food into a single large table
+# this will take several steps. 
+# first, convert each list of food nutrients into a df, add a col for the food id, and
+# apend the df to a list. Then, these can be concatented with concat
+
+nutrients = []
+
+for rec in db:
+    fnuts = pd.DataFrame(rec["nutrients"])
+    fnuts["id"] = rec["id"]
+    nutrients.append(fnuts)
+
+nutrients = pd.concat(nutrients, ignore_index=True)
+
+nutrients
+
+# there are some duplicates, so drop them
+
+nutrients.duplicated().sum()    # number of duplicates
+
+nutrients = nutrients.drop_duplicates()
+
+# rename group and description for clarity
+
+col_mapping = {"description": "food",
+               "group": "fgroup"}
+
+info = info.rename(columns=col_mapping, copy=False)
+
+info.info()
+
+col_mapping = {"description": "nutrient",
+               "group": "nutgroup"}
+
+nutrients = nutrients.rename(columns=col_mapping, copy=False)
+
+nutrients
+
+# we can now merge info with nutrients
+
+ndata = pd.merge(nutrients, info, on="id")
+
+ndata.info()
+
+ndata.iloc[30000]
+
+# we can now make a plot of median values by food group and nutrient type
+
+result = ndata.groupby(["nutrient", "fgroup"])["value"].quantile(0.5)
+
+result["Zinc, Zn"].sort_values().plot(kind="barh")   # great chart
+
+# using idxmax or argmax series methods, you can find which food is momst dense in each nutrient
+
+by_nutrient = ndata.groupby(["nutgroup", "nutrient"])
+
+def get_maximum(x):
+    return x.loc[x.value.idxmax()]
+
+max_foods = by_nutrient.apply(get_maximum)[["value", "food"]]
+
+# make the food a little smaller
+max_foods["food"] = max_foods["food"].str[:50]
+
+# only the amino acids nutrient group
+
+max_foods.loc["Amino Acids"]["food"]
+
+# 13.5 2012 Federal Election Commission Database
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
