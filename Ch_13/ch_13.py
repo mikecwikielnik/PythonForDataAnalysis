@@ -481,3 +481,54 @@ subset.plot(subplots=True, figsize=(12, 10), title="Number of births per year")
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# the plots (the common names selected) generally decrease after 1980. Let's find out why.
+
+table = top1000.pivot_table("prop", index="year", columns="sex", aggfunc=sum)
+
+table.plot(title="Sum of table1000.prop by year and sex", yticks=np.linspace(0, 1.2, 13))   # this dope. as you know, yticks=np.linspace(start, end, how many)
+
+# you can see that is increasing name diversity in the above plot.
+# these common names decrease over time. 
+
+# We can also see the number of distinct names, taken in order of popularity from highest to lowest, in the top 50% of births
+# since it is trickier to compute, we will just consider 2010
+
+df = boys[boys["year"] == 2010]
+
+df
+
+# sort, take the cumsum, searchsorted(0.5) is find the cutoff of 0.5
+
+prop_cumsum = df["prop"].sort_values(ascending=False).cumsum()
+
+prop_cumsum[:10]
+
+prop_cumsum.searchsorted(0.5)
+
+# 1900 yields less distinct names
+
+df = boys[boys.year == 1900]
+
+in1900 = df.sort_values("prop", ascending=False).prop.cumsum()
+
+in1900.searchsorted(0.5) + 1    # off-one error
+
+# apply this operation to each year/sex combo, groupby those fields, and apply a fn returning the count for each group
+
+def get_quantile_count(group, q=0.5):
+    group = group.sort_values("prop", ascending=False)
+    return group.prop.cumsum().searchsorted(q) + 1
+
+diversity = top1000.groupby(["year", "sex"]).apply(get_quantile_count)
+diversity = diversity.unstack()
+
+# diversity has 2 time series, one for each sex, indexed by year. 
+
+diversity.head()
+
+diversity.plot(title="Number of popular names in top 50%")
+
+# The “last letter” revolution
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
