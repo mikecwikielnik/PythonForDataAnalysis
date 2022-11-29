@@ -371,3 +371,79 @@ genre_ratings[:10]
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# we have to do some data wrangling to load this dataset
+
+names1880 = pd.read_csv("../book files/datasets/babynames/yob1880.txt", names=["name", "sex", "births"])
+
+names1880
+
+# take the sum of the births column by sex as the total number of births in that year
+
+names1880.groupby("sex")["births"].sum()    # groupby by (sex) to get the ["births"] figure, what figure? sum(). 
+
+# ex: you have separate files, we need to put them in a single df and add a year field. 
+# use pandas.concat
+
+pieces = []
+for year in range(1880, 2022):  # off-one error even w/ file names
+    path = f"../book files/datasets/babynames/yob{year}.txt"
+    frame = pd.read_csv(path, names=["name", "sex", "births"])
+
+    # Add a column for the year
+    frame["year"] = year
+    pieces.append(frame)
+
+# Concatentate everything into a single df
+names = pd.concat(pieces, ignore_index=True) # True because we're not interesteed in preserving the original row numbers
+
+names
+
+# Now, we can start aggregating the data at the year & sex level
+# using groupby or pivot_table
+
+total_births = names.pivot_table("births", index="year", columns="sex", aggfunc=sum)
+# what data fields do you want to look at? births. what index (y-axis)? year. what col names do you want? sex. 
+# aggfunc=sum means sum all the births.
+
+total_births.tail()
+
+total_births.plot(title="Total births by sex and year")
+
+# Now, lets insert a column prop w/ the fraction of babies given each name relative to the total number of births
+# a prop value of 0.02 means 2/100 babies. Then we groupby by year and sex, then add a new col to each group
+
+def add_prop(group):
+    group["prop"] = group["births"] / group["births"].sum()
+    return group
+names = names.groupby(["year", "sex"]).apply(add_prop)
+
+# the resulting complete dataset now looks like this
+
+names
+
+
+# w/ a grouping operation, check your work aka "sanity check". verify all the col sums = 1
+
+names.groupby(["year", "sex"])["prop"].sum()
+
+# now, extract a subset. the top 1,000 names for each sex/year combo. Another group operation.
+
+def get_top1000(group):
+    return group.sort_values("births", ascending=False)[:1000]
+
+grouped = names.groupby(["year", "sex"])
+
+top1000 = grouped.apply(get_top1000)
+
+top1000.head()
+
+# drop the group index since we don't need it 
+
+top1000 = top1000.reset_index(drop=True)
+
+top1000.head()
+
+# Analyzing Naming Trends
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
