@@ -583,3 +583,33 @@ dny_ts.plot()
 
 # McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
 
+# going back to top1000, compute a list of names occuring in the dataset starting w/ "Lesl"
+
+all_names = pd.Series(top1000["name"].unique())
+
+lesley_like = all_names[all_names.str.contains("Lesl")]
+
+lesley_like
+
+# from here we filter down to just those names and sum births grouped by name to rel freq
+
+filtered = top1000[top1000["name"].isin(lesley_like)]
+
+filtered.groupby("name")["births"].sum()
+
+# next, lets aggregate by sex and year, and normalize w/in year
+
+table = filtered.pivot_table("births", index="year", columns="sex", aggfunc="sum")
+
+table = table.div(table.sum(axis="columns"), axis="index")
+
+table.tail()
+
+# lastly, now its possible to make a plot of the breakdown by sex over time
+
+table.plot(style={"M": "k-", "F":"k--"})
+
+# 13.4 USDA Food Database
+
+# McKinney, Wes. Python for Data Analysis . O'Reilly Media. Kindle Edition. 
+
