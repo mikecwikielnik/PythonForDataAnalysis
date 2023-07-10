@@ -34,3 +34,15 @@ other_arr = np.ones((3, 5))
 other_arr.shape
 
 arr.reshape(other_arr.shape)
+
+# the opposite of reshape from 1D to a higher dim is typically known as flattening 
+
+arr = np.arange(15).reshape((5, 3))
+
+arr
+
+arr.ravel()
+
+# flatten returns a copy of the data
+
+arr.flatten()
