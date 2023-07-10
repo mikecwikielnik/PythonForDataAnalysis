@@ -11,3 +11,10 @@ floats = np.ones(10, dtype=np.float32)
 np.issubdtype(ints.dtype, np.integer)
 np.issubdtype(floats.dtype, np.floating)
 
+# you can see the parent type of a specific data type by calling the type's mro method
+
+np.float64.mro()
+
+# therefore, we have:
+
+np.issubdtype(ints.dtype, np.number)
