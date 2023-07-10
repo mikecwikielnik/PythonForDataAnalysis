@@ -20,3 +20,9 @@ arr.reshape((4, 2)) # rc cola
 
 arr.reshape((4, 2)).reshape((2, 4))
 
+# one of the dimensions can be -1, 
+# which the value used for that dim will be inferred from the data
+
+arr = np.arange(15)
+
+arr.reshape((5, -1))
