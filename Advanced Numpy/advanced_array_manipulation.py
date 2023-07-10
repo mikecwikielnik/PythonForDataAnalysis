@@ -15,3 +15,8 @@ arr = np.arange(8)
 arr
 
 arr.reshape((4, 2)) # rc cola
+
+# a multi-dimensional array can also be reshapped
+
+arr.reshape((4, 2)).reshape((2, 4))
+
