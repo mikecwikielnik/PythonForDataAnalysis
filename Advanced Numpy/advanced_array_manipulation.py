@@ -26,3 +26,11 @@ arr.reshape((4, 2)).reshape((2, 4))
 arr = np.arange(15)
 
 arr.reshape((5, -1))
+
+# since an array is a tuple, it can be passed to reshape too
+
+other_arr = np.ones((3, 5))
+
+other_arr.shape
+
+arr.reshape(other_arr.shape)
